@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to ????????????
 public class InterfaceManager : MonoBehaviour {
 
 	// Use this for initialization

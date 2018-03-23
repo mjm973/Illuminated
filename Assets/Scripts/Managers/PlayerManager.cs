@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon;
 
-public class PlayerManager : MonoBehaviour {
+// Class to sync player to network
+public class PlayerManager : Photon.MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -11,10 +13,17 @@ public class PlayerManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        // update gameobject of we don't own it
+		if (!photonView.isMine) {
+
+        }
 	}
 
-    void OnPhotonSerializeView() {
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        if (stream.isWriting) { // write to network
 
+        } else { // read from network
+
+        }
     }
 }
