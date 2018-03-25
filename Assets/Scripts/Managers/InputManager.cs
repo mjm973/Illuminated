@@ -23,11 +23,13 @@ public class InputManager : Photon.MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         // locate our head
         head = transform.Find("Head");
-        // for now, let's grab the main camera and attach it
-        Transform mainCam = Camera.main.transform;
-        mainCam.position = head.position;
-        mainCam.rotation = head.rotation;
-        mainCam.SetParent(head);
+        // if we are running on our machine, find the main camera and attach it
+        if (photonView.isMine) {
+            Transform mainCam = Camera.main.transform;
+            mainCam.position = head.position;
+            mainCam.rotation = head.rotation;
+            mainCam.SetParent(head);
+        }
         // get our rigidbody to work with physicz
         rb = GetComponent<Rigidbody>();
     }

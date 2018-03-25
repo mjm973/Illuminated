@@ -47,8 +47,8 @@ public class NetworkManager : Photon.PunBehaviour {
             }
 
             if (rooms != null) {
-                int i = 0;
-                foreach (RoomInfo r in rooms) {
+                for (int i = 0; i < rooms.Length; ++i) {
+                    RoomInfo r = rooms[i];
                     if (GUI.Button(new Rect(100, 250 + 110 * i, 250, 100), "Join " + r.Name)) {
                         PhotonNetwork.JoinRoom(r.Name);
                     }

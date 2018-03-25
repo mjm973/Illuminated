@@ -4,3 +4,5 @@ Ignore*
 Temp
 Library
 *.csproj
+build*
+UnityPlayer.dll
