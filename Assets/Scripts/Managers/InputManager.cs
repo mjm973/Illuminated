@@ -11,7 +11,7 @@ public class InputManager : Photon.MonoBehaviour {
     public float angularSpeed = 120;
     public bool invertY = true;
 
-    [Range(0, 100)]
+    [Range(0, 10)]
     public float jumpForce = 100f;
 
     Transform head;

@@ -239,7 +239,7 @@ MonoBehaviour:
   moveSpeed: 5
   angularSpeed: 120
   invertY: 1
-  jumpForce: 50
+  jumpForce: 5
 --- !u!136 &136393514224932174
 CapsuleCollider:
   m_ObjectHideFlags: 1
