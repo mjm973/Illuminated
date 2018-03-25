@@ -5,7 +5,8 @@ using Photon;
 
 // Class to manage our network
 public class NetworkManager : Photon.PunBehaviour {
-    string roomName = "room";
+    string[] roomNames = { "room", "another", "stupid", "pls work", "fak" };
+    int randIndex;
     RoomInfo[] rooms;
 
     enum AvatarType {
@@ -30,6 +31,8 @@ public class NetworkManager : Photon.PunBehaviour {
         }
 
         PhotonNetwork.ConnectUsingSettings("0.1");
+
+        randIndex = Random.Range(0, roomNames.Length);
     }
 
     // Update is called once per frame
@@ -42,8 +45,8 @@ public class NetworkManager : Photon.PunBehaviour {
             GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
         }
         else if (PhotonNetwork.room == null) {
-            if (GUI.Button(new Rect(100, 100, 250, 100), "New Room")) {
-                PhotonNetwork.CreateRoom(roomName, new RoomOptions() { MaxPlayers = 6, IsVisible = true }, null);
+            if (GUI.Button(new Rect(100, 100, 250, 100), "New " + roomNames[randIndex])) {
+                PhotonNetwork.CreateRoom(roomNames[randIndex], new RoomOptions() { MaxPlayers = 6, IsVisible = true }, null);
             }
 
             if (rooms != null) {
@@ -64,16 +67,17 @@ public class NetworkManager : Photon.PunBehaviour {
     }
 
     public override void OnReceivedRoomListUpdate() {
+        Debug.Log("henlo");
         rooms = PhotonNetwork.GetRoomList();
     }
 
     public override void OnPhotonRandomJoinFailed(object[] codeAndMsg) {
         //base.OnPhotonRandomJoinFailed(codeAndMsg);
-        PhotonNetwork.CreateRoom(roomName, new RoomOptions() { MaxPlayers = 8 }, null);
+        PhotonNetwork.CreateRoom(roomNames[randIndex], new RoomOptions() { MaxPlayers = 8 }, null);
     }
 
     public override void OnJoinedLobby() {
         //base.OnJoinedLobby();
-
+        Debug.Log("dis lobby");
     }
 }
