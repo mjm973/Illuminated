@@ -3,3 +3,4 @@ Ignore*
 .vs
 Temp
 Library
+.csproj
