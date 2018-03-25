@@ -11,10 +11,14 @@ public class InputManager : Photon.MonoBehaviour {
     public float angularSpeed = 120;
     public bool invertY = true;
 
-    Transform head;
+    [Range(0, 100)]
+    public float jumpForce = 100f;
 
-	// Use this for initialization
-	void Start () {
+    Transform head;
+    Rigidbody rb;
+
+    // Use this for initialization
+    void Start() {
         // Lock cursor to center of the screen to make our lives easier
         Cursor.lockState = CursorLockMode.Locked;
         // locate our head
@@ -24,19 +28,22 @@ public class InputManager : Photon.MonoBehaviour {
         mainCam.position = head.position;
         mainCam.rotation = head.rotation;
         mainCam.SetParent(head);
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        // get our rigidbody to work with physicz
+        rb = GetComponent<Rigidbody>();
+    }
+
+    // Update is called once per frame
+    void Update() {
         // allow input only if we own the gameobject
-		if (photonView.isMine) {
+        if (photonView.isMine) {
             HandleInput();
         }
-	}
+    }
 
     void HandleInput() {
         Move();
         Turn();
+        Jump();
     }
 
     void Move() {
@@ -45,10 +52,14 @@ public class InputManager : Photon.MonoBehaviour {
         // capture WASD/ArrowKey input
         move.x = Input.GetAxis("Horizontal");
         move.z = Input.GetAxis("Vertical");
-        // normalize and multiply by our speed
-        move = move.normalized * moveSpeed;
-        // translate scaled by deltaTime
-        transform.Translate(move * Time.deltaTime);
+        // make sure we don't overwrite our y movement
+        float ySpeed = rb.velocity.y;
+        // normalize and multiply by our speed and deltaTime
+        move = move.normalized * moveSpeed;// * Time.deltaTime;
+        // factor our y speed back in
+        move.y = ySpeed;
+        // move using the rigidbody's physics
+        rb.velocity = transform.rotation*move;
     }
 
     void Turn() {
@@ -65,5 +76,11 @@ public class InputManager : Photon.MonoBehaviour {
         transform.Rotate(0, turn.y, 0, Space.World);
         // vertical turn is in local space
         head.Rotate(turn.x, 0, 0, Space.Self);
+    }
+
+    void Jump() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
     }
 }
