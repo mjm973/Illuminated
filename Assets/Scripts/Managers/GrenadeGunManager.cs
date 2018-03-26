@@ -22,6 +22,8 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
     // We store its position so we know where to create our grenade.
 	Vector3 grenadeSpawnLocation;
 
+    Transform spawnTip; 
+
     // Reference to the grenade prefab
     public GameObject grenade;
 
@@ -29,15 +31,18 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
     public float forceMult;
 
 	void Start () {
-		grenadeSpawnLocation = transform.Find("GrenadeSpawnPoint").position;
+        spawnTip = transform.Find("Head").Find("GrenadeLauncher").Find("GrenadeSpawnPoint");
+
+        grenadeSpawnLocation = spawnTip.position;
         Debug.Log("the spawn location for grenade is " + grenadeSpawnLocation);
 	}
 
 
 	void Update () {
-        grenadeSpawnLocation = transform.Find("GrenadeSpawnPoint").position;
+        spawnTip = transform.Find("Head").Find("GrenadeLauncher").Find("GrenadeSpawnPoint");
+        grenadeSpawnLocation = spawnTip.position;
         Debug.Log("the spawn location for grenade is " + grenadeSpawnLocation);
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && photonView.isMine)
         {
             if (IsGrenadeSpawnValid())
             {
@@ -64,6 +69,6 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
 	void SpawnGrenade(){
         // Instantiate a grenade at the location of the tip
         GameObject launchedGrenade = Instantiate(grenade, grenadeSpawnLocation, Quaternion.identity);
-        launchedGrenade.GetComponent<Rigidbody>().AddForce(transform.Find("GrenadeSpawnPoint").forward * forceMult, ForceMode.Impulse);
+        launchedGrenade.GetComponent<Rigidbody>().AddForce(spawnTip.forward * forceMult, ForceMode.Impulse);
 	}
 }

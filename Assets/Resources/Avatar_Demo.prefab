@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 114412836896100272}
   - component: {fileID: 114144515677483478}
   - component: {fileID: 114432599522398362}
+  - component: {fileID: 114603816897868336}
   m_Layer: 0
   m_Name: Avatar_Demo
   m_TagString: Untagged
@@ -102,13 +103,12 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1991929060991190
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4078456580817734}
-  - component: {fileID: 114445836494363158}
   m_Layer: 0
   m_Name: GrenadeLauncher
   m_TagString: Untagged
@@ -148,15 +148,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1991929060991190}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.99, y: 1.64, z: 1.82}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.8249999, y: -0.22, z: 1.14}
+  m_LocalScale: {x: 0.83333325, y: 0.83333325, z: 0.83333325}
   m_Children:
   - {fileID: 4002072939481054}
   - {fileID: 4563728489878532}
   - {fileID: 4033578274580206}
-  m_Father: {fileID: 4093206005906224}
-  m_RootOrder: 1
+  m_Father: {fileID: 4698257480794924}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4093206005906224
 Transform:
@@ -169,7 +169,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4698257480794924}
-  - {fileID: 4078456580817734}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -195,7 +194,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1.52, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
-  m_Children: []
+  m_Children:
+  - {fileID: 4078456580817734}
   m_Father: {fileID: 4093206005906224}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -423,9 +423,10 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 114144515677483478}
+  - {fileID: 114603816897868336}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114432599522398362
@@ -443,19 +444,19 @@ MonoBehaviour:
   angularSpeed: 120
   invertY: 1
   jumpForce: 5
---- !u!114 &114445836494363158
+--- !u!114 &114603816897868336
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1991929060991190}
+  m_GameObject: {fileID: 1581774910770048}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a505012d27118ed47823f88f6bcc12c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   grenade: {fileID: 1569765498609448, guid: b8945415cd9168e4699d1b2731fb7901, type: 2}
-  forceMult: 10
+  forceMult: 7
 --- !u!136 &136393514224932174
 CapsuleCollider:
   m_ObjectHideFlags: 1
