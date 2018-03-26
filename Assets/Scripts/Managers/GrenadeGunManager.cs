@@ -30,10 +30,13 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
 
 	void Start () {
 		grenadeSpawnLocation = transform.Find("GrenadeSpawnPoint").position;
+        Debug.Log("the spawn location for grenade is " + grenadeSpawnLocation);
 	}
 
 
 	void Update () {
+        grenadeSpawnLocation = transform.Find("GrenadeSpawnPoint").position;
+        Debug.Log("the spawn location for grenade is " + grenadeSpawnLocation);
         if (Input.GetMouseButtonDown(0))
         {
             if (IsGrenadeSpawnValid())

@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grenade: {fileID: 1569765498609448, guid: b8945415cd9168e4699d1b2731fb7901, type: 2}
-  forceMult: 3
+  forceMult: 10
 --- !u!136 &136393514224932174
 CapsuleCollider:
   m_ObjectHideFlags: 1
