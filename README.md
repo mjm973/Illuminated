@@ -7,8 +7,7 @@ Final project for Alternate Realities Spring 2018 [Mateo, Ming, Grace, Shantanu]
 
 - Enable Auto-Join Lobby
 
-- Otherwise, enjoy crying while wondering why the fuckshit won't work
-
+- Otherwise, enjoy crying while wondering why things are failing
 ## TODO:
 
 ## DONE:
