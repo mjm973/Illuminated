@@ -10,6 +10,11 @@ public class InputManager : Photon.MonoBehaviour {
     public float moveSpeed = 5;
     public float angularSpeed = 120;
     public bool invertY = true;
+	private float dodging = 0;
+	public float initDodgeSpeed = 150;
+	public float decceleration = 2;
+	public float dodgeSpeed = 0;
+
 
     [Range(0, 10)]
     public float jumpForce = 100f;
@@ -46,6 +51,7 @@ public class InputManager : Photon.MonoBehaviour {
         Move();
         Turn();
         Jump();
+		Dodge ();
     }
 
     void Move() {
@@ -63,6 +69,46 @@ public class InputManager : Photon.MonoBehaviour {
         // move using the rigidbody's physics
         rb.velocity = transform.rotation*move;
     }
+
+	void Dodge(){
+		if (dodging == 0) {
+			if (Input.GetKeyDown (KeyCode.Q)) {
+				if (dodging == 0) {
+					dodgeSpeed = -initDodgeSpeed;
+				}
+				dodging = 1;
+			} else if (Input.GetKeyDown (KeyCode.E)) {
+				if (dodging == 0) {
+					dodgeSpeed = initDodgeSpeed;
+				}
+				dodging = 2;
+
+			}
+		}
+
+		if (dodging == 1) {
+			
+			rb.AddRelativeForce (dodgeSpeed,0,0);
+			dodgeSpeed += decceleration;
+
+			if (dodgeSpeed == 0) {
+				dodging = 0;
+			}
+
+			}
+		if (dodging == 2) {
+
+			rb.AddRelativeForce (dodgeSpeed,0,0);
+			dodgeSpeed -= decceleration;
+
+			if (dodgeSpeed == 0) {
+				dodging = 0;
+			}
+
+		}
+
+
+	}
 
     void Turn() {
         // make vector to store rotation input
