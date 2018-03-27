@@ -38,7 +38,7 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
 
     // Reference to the grenade prefab
     // string now because Photon loads it from the resources folder
-    public string grenade = "Grenade";
+    //public string grenade = "Grenade";
 
     // How strong we push grenade
     public float forceMult;
@@ -81,7 +81,7 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
 
 	void SpawnGrenade(){
         // Instantiate a grenade at the location of the tip
-        GameObject launchedGrenade = PhotonNetwork.Instantiate(grenade, grenadeSpawnLocation, Quaternion.identity, 0);
+        GameObject launchedGrenade = PhotonNetwork.Instantiate("Grenade", grenadeSpawnLocation, Quaternion.identity, 0);
         launchedGrenade.GetComponent<Rigidbody>().AddForce(spawnTip.forward * forceMult, ForceMode.Impulse);
         launchedGrenade.GetComponent<GrenadeManager>().Gun = this;
 
