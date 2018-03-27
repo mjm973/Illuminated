@@ -21,6 +21,11 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
     // There's a little empty Game Object just a tiny bit ahead of the grenade launcher's tip which is the position from which the grenades will be spawned.
     // We store its position so we know where to create our grenade.
 	Vector3 grenadeSpawnLocation;
+    
+    // In this current prototype implementation, there's only a limit to how many grenades there are in the world, not a player-by-player limit
+    // TODO: Implement player-by-player limit to how many grenades we can fire
+    public float grenadeLimit;
+
 
     Transform spawnTip; 
 
@@ -57,7 +62,7 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
         //int myGrenades = 0;
         // Find all the grenades in the game
         GameObject[] allGrenades = GameObject.FindGameObjectsWithTag("grenade");
-        if (allGrenades.Length < 3){
+        if (allGrenades.Length < grenadeLimit){
             Debug.Log("Less than 3 grenades, we launching!");
             return true;
         }

@@ -455,8 +455,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a505012d27118ed47823f88f6bcc12c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grenadeLimit: 10
   grenade: {fileID: 1569765498609448, guid: b8945415cd9168e4699d1b2731fb7901, type: 2}
-  forceMult: 7
+  forceMult: 12
 --- !u!136 &136393514224932174
 CapsuleCollider:
   m_ObjectHideFlags: 1
