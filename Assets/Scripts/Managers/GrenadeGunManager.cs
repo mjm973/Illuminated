@@ -22,10 +22,17 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
     // We store its position so we know where to create our grenade.
 	Vector3 grenadeSpawnLocation;
     
-    // In this current prototype implementation, there's only a limit to how many grenades there are in the world, not a player-by-player limit
-    // TODO: Implement player-by-player limit to how many grenades we can fire
-    public float grenadeLimit;
+    // Maximum amount of grenades allowed per player
+    // static because it should be the same for everyone
+    static int grenadeLimit = 3;
 
+    // Wrap it under a Property to allow only get
+    public static int GrenadeLimit {
+        get { return grenadeLimit; }
+    }
+
+    // Internal counter to track grenades shot
+    int grenadeCounter = 0;
 
     Transform spawnTip; 
 
@@ -59,10 +66,10 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
 	// Are there already three of my children grenades in the game?
     // i.e, of all the grenades in the game, how many of them have photon's isMine as true
 	bool IsGrenadeSpawnValid() {
-        //int myGrenades = 0;
         // Find all the grenades in the game
-        GameObject[] allGrenades = GameObject.FindGameObjectsWithTag("grenade");
-        if (allGrenades.Length < grenadeLimit){
+        //GameObject[] allGrenades = GameObject.FindGameObjectsWithTag("grenade");
+        // Check our grenade counter against the maximum allowed
+        if (grenadeCounter < grenadeLimit){
             Debug.Log("Less than 3 grenades, we launching!");
             return true;
         }
@@ -75,5 +82,14 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
         // Instantiate a grenade at the location of the tip
         GameObject launchedGrenade = Instantiate(grenade, grenadeSpawnLocation, Quaternion.identity);
         launchedGrenade.GetComponent<Rigidbody>().AddForce(spawnTip.forward * forceMult, ForceMode.Impulse);
+        launchedGrenade.GetComponent<GrenadeManager>().Gun = this;
+
+        // Increase our grenade counter on grenade spawn
+        ++grenadeCounter;
 	}
+
+    // Public method to allow grenades to report their de-spawn
+    public void DespawnGrenade() {
+        --grenadeCounter; 
+    }
 }
