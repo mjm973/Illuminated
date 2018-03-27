@@ -26,6 +26,9 @@ public class PlayerManager : Photon.MonoBehaviour {
         foreach (MeshRenderer mr in meshes) {
             mr.material = photonView.isMine ? visible : invisible;
         }
+
+        targetPos = transform.position;
+        targetRot = transform.rotation;
     }
 
     // Update is called once per frame
