@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon;
@@ -22,6 +22,8 @@ public class InputManager : Photon.MonoBehaviour {
     Transform head;
     Rigidbody rb;
 
+    GrenadeGunManager gun;
+
     // Use this for initialization
     void Start() {
         // Lock cursor to center of the screen to make our lives easier
@@ -37,6 +39,8 @@ public class InputManager : Photon.MonoBehaviour {
         }
         // get our rigidbody to work with physicz
         rb = GetComponent<Rigidbody>();
+        // get our gun to fire
+        gun = GetComponentInChildren<GrenadeGunManager>();
     }
 
     // Update is called once per frame
@@ -51,7 +55,8 @@ public class InputManager : Photon.MonoBehaviour {
         Move();
         Turn();
         Jump();
-		Dodge ();
+        Shoot();
+        Dodge();
     }
 
     void Move() {
@@ -129,6 +134,12 @@ public class InputManager : Photon.MonoBehaviour {
     void Jump() {
         if (Input.GetKeyDown(KeyCode.Space)) {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+    }
+
+    void Shoot() {
+        if (Input.GetMouseButtonDown(0)) {
+            gun.Fire();
         }
     }
 }

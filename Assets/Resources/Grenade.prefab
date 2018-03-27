@@ -24,9 +24,12 @@ GameObject:
   - component: {fileID: 135081193941765894}
   - component: {fileID: 54615445751460310}
   - component: {fileID: 108236642340364386}
+  - component: {fileID: 114101922936272604}
+  - component: {fileID: 114274938775502786}
+  - component: {fileID: 114849464991869066}
   m_Layer: 0
-  m_Name: Pellet
-  m_TagString: Untagged
+  m_Name: Grenade
+  m_TagString: grenade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,7 +114,7 @@ Light:
   m_Type: 2
   m_Color: {r: 0, g: 0.04827571, b: 1, a: 1}
   m_Intensity: 10
-  m_Range: 3
+  m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -136,6 +139,55 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114101922936272604
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1569765498609448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 1
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 114849464991869066}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
+--- !u!114 &114274938775502786
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1569765498609448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76895dc3b8cb65446a287a48649aff5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114849464991869066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1569765498609448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c22f795c859f7409e932dc3b9055d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grenadeDespawnDelay: 2
 --- !u!135 &135081193941765894
 SphereCollider:
   m_ObjectHideFlags: 1
