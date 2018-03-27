@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon;
@@ -10,12 +10,19 @@ public class InputManager : Photon.MonoBehaviour {
     public float moveSpeed = 5;
     public float angularSpeed = 120;
     public bool invertY = true;
+	private float dodging = 0;
+	public float initDodgeSpeed = 150;
+	public float decceleration = 2;
+	public float dodgeSpeed = 0;
+
 
     [Range(0, 10)]
     public float jumpForce = 100f;
 
     Transform head;
     Rigidbody rb;
+
+    GrenadeGunManager gun;
 
     // Use this for initialization
     void Start() {
@@ -32,6 +39,8 @@ public class InputManager : Photon.MonoBehaviour {
         }
         // get our rigidbody to work with physicz
         rb = GetComponent<Rigidbody>();
+        // get our gun to fire
+        gun = GetComponentInChildren<GrenadeGunManager>();
     }
 
     // Update is called once per frame
@@ -46,6 +55,8 @@ public class InputManager : Photon.MonoBehaviour {
         Move();
         Turn();
         Jump();
+        Shoot();
+        Dodge();
     }
 
     void Move() {
@@ -63,6 +74,46 @@ public class InputManager : Photon.MonoBehaviour {
         // move using the rigidbody's physics
         rb.velocity = transform.rotation*move;
     }
+
+	void Dodge(){
+		if (dodging == 0) {
+			if (Input.GetKeyDown (KeyCode.Q)) {
+				if (dodging == 0) {
+					dodgeSpeed = -initDodgeSpeed;
+				}
+				dodging = 1;
+			} else if (Input.GetKeyDown (KeyCode.E)) {
+				if (dodging == 0) {
+					dodgeSpeed = initDodgeSpeed;
+				}
+				dodging = 2;
+
+			}
+		}
+
+		if (dodging == 1) {
+			
+			rb.AddRelativeForce (dodgeSpeed,0,0);
+			dodgeSpeed += decceleration;
+
+			if (dodgeSpeed == 0) {
+				dodging = 0;
+			}
+
+			}
+		if (dodging == 2) {
+
+			rb.AddRelativeForce (dodgeSpeed,0,0);
+			dodgeSpeed -= decceleration;
+
+			if (dodgeSpeed == 0) {
+				dodging = 0;
+			}
+
+		}
+
+
+	}
 
     void Turn() {
         // make vector to store rotation input
@@ -83,6 +134,12 @@ public class InputManager : Photon.MonoBehaviour {
     void Jump() {
         if (Input.GetKeyDown(KeyCode.Space)) {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+    }
+
+    void Shoot() {
+        if (Input.GetMouseButtonDown(0)) {
+            gun.Fire();
         }
     }
 }

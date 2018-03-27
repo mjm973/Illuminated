@@ -274,6 +274,15 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets/Ignore/Photon Unity Networking/Editor/PhotonNetwork/Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Photon3Unity3D">
+      <HintPath>Assets/Ignore/Plugins/Photon3Unity3D.dll</HintPath>
+    </Reference>
+    <Reference Include="websocket-sharp">
+      <HintPath>Assets/Ignore/Plugins/WebSocket/websocket-sharp.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Advertisements">
       <HintPath>C:/Users/nyuad/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
     </Reference>
@@ -295,56 +304,43 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/nyuad/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>Assets/Photon Unity Networking/Editor/PhotonNetwork/Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="websocket-sharp">
-      <HintPath>Assets/Plugins/WebSocket/websocket-sharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Photon3Unity3D">
-      <HintPath>Assets/Plugins/Photon3Unity3D.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Illuminated.Plugins.csproj">
-      <Project>{2FE96142-47CF-34EC-2967-34B3B1D2ABF4}</Project>
-      <Name>Illuminated.Plugins</Name>
-    </ProjectReference>
     <ProjectReference Include="Illuminated.csproj">
       <Project>{06416AD0-577F-0155-F02C-B6E5F3B88BC0}</Project>
       <Name>Illuminated</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Photon Unity Networking\Demos\DemoHub\Editor\PunStartup.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\AccountService.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\CullAreaEditor.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\PhotonConverter.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\PhotonEditor.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\PhotonEditorUtils.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\PhotonGUI.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\PhotonViewHandler.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\PhotonViewInspector.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\PunSceneSettings.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\ReorderableListResources.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\ServerSettingsInspector.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\Views\PhotonAnimatorViewEditor.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\Views\PhotonRigidbody2DViewEditor.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\Views\PhotonRigidbodyViewEditor.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\Views\PhotonTransformViewEditor.cs" />
-    <Compile Include="Assets\Photon Unity Networking\UtilityScripts\PhotonPlayer\Editor\PlayerRoomIndexingInspector.cs" />
-    <Compile Include="Assets\Photon Unity Networking\UtilityScripts\PhotonPlayer\Editor\PunTeamsInspector.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Demos\DemoHub\Editor\PunStartup.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Editor\PhotonNetwork\AccountService.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Editor\PhotonNetwork\CullAreaEditor.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Editor\PhotonNetwork\PhotonConverter.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Editor\PhotonNetwork\PhotonEditor.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Editor\PhotonNetwork\PhotonEditorUtils.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Editor\PhotonNetwork\PhotonGUI.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Editor\PhotonNetwork\PhotonViewHandler.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Editor\PhotonNetwork\PhotonViewInspector.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Editor\PhotonNetwork\PunSceneSettings.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Editor\PhotonNetwork\ReorderableListResources.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Editor\PhotonNetwork\ServerSettingsInspector.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Editor\PhotonNetwork\Views\PhotonAnimatorViewEditor.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Editor\PhotonNetwork\Views\PhotonRigidbody2DViewEditor.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Editor\PhotonNetwork\Views\PhotonRigidbodyViewEditor.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\Editor\PhotonNetwork\Views\PhotonTransformViewEditor.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\UtilityScripts\PhotonPlayer\Editor\PlayerRoomIndexingInspector.cs" />
+    <Compile Include="Assets\Ignore\Photon Unity Networking\UtilityScripts\PhotonPlayer\Editor\PunTeamsInspector.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Photon Unity Networking\Demos\DemoBoxes\Resources\eurof_tt.txt" />
-    <None Include="Assets\Photon Unity Networking\Demos\DemoRockPaperScissors\Assets\OpenSans\Apache License.txt" />
-    <None Include="Assets\Photon Unity Networking\Demos\MarcoPolo-Tutorial\marcopolo-readme.txt" />
-    <None Include="Assets\Photon Unity Networking\Demos\Shared Assets\Skin\3dText.shader" />
-    <None Include="Assets\Photon Unity Networking\changelog.txt" />
-    <None Include="Assets\Photon Unity Networking\link.xml" />
-    <None Include="Assets\Photon Unity Networking\readme.txt" />
-    <None Include="Assets\Plugins\Photon3Unity3D.xml" />
-    <None Include="Assets\Plugins\release_history.txt" />
+    <None Include="Assets\Ignore\Photon Unity Networking\Demos\DemoBoxes\Resources\eurof_tt.txt" />
+    <None Include="Assets\Ignore\Photon Unity Networking\Demos\DemoRockPaperScissors\Assets\OpenSans\Apache License.txt" />
+    <None Include="Assets\Ignore\Photon Unity Networking\Demos\MarcoPolo-Tutorial\marcopolo-readme.txt" />
+    <None Include="Assets\Ignore\Photon Unity Networking\Demos\Shared Assets\Skin\3dText.shader" />
+    <None Include="Assets\Ignore\Photon Unity Networking\changelog.txt" />
+    <None Include="Assets\Ignore\Photon Unity Networking\link.xml" />
+    <None Include="Assets\Ignore\Photon Unity Networking\readme.txt" />
+    <None Include="Assets\Ignore\Plugins\Photon3Unity3D.xml" />
+    <None Include="Assets\Ignore\Plugins\release_history.txt" />
     <None Include="Assets\Shaders\LightClear.cginc" />
     <None Include="Assets\Shaders\LightClear.shader" />
     <None Include="Assets\Shaders\LightSolid.cginc" />

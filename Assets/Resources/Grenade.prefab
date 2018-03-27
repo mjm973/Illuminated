@@ -114,7 +114,7 @@ Light:
   m_Type: 2
   m_Color: {r: 0, g: 0.04827571, b: 1, a: 1}
   m_Intensity: 10
-  m_Range: 3
+  m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -154,12 +154,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 0
+  synchronization: 1
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 114849464991869066}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
