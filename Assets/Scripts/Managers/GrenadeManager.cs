@@ -13,6 +13,9 @@ public class GrenadeManager : Photon.MonoBehaviour {
 
     public float grenadeDespawnDelay;
 
+    // Position sync 
+    Vector3 targetPos;
+
     // Reference to our grenade launcher
     GrenadeGunManager gun = null;
     // Public API allows it to be set only once
@@ -29,11 +32,18 @@ public class GrenadeManager : Photon.MonoBehaviour {
     void Start() {
         StartCoroutine(DeathDelay());
         Debug.Log("I exist mmkay");
+
+        // Set to kinematic in remote machines - we are lerping the position anyway
+        if (!photonView.isMine) {
+            GetComponent<Rigidbody>().isKinematic = true;
+        }
     }
 
     // Update is called once per frame
     void Update() {
-
+        if (!photonView.isMine) {
+            transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * 5f);
+        }
     }
 
     IEnumerator DeathDelay() {
@@ -45,6 +55,14 @@ public class GrenadeManager : Photon.MonoBehaviour {
             gun.DespawnGrenade();
         }
 
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(gameObject);
+    }
+
+    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        if (stream.isWriting) {
+            stream.SendNext(transform.position);
+        } else {
+            targetPos = (Vector3)stream.ReceiveNext();
+        }
     }
 }

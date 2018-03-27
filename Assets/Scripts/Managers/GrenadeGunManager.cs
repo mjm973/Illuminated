@@ -80,7 +80,7 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
 
 	void SpawnGrenade(){
         // Instantiate a grenade at the location of the tip
-        GameObject launchedGrenade = Instantiate(grenade, grenadeSpawnLocation, Quaternion.identity);
+        GameObject launchedGrenade = PhotonNetwork.Instantiate("Grenade", grenadeSpawnLocation, Quaternion.identity, 0);
         launchedGrenade.GetComponent<Rigidbody>().AddForce(spawnTip.forward * forceMult, ForceMode.Impulse);
         launchedGrenade.GetComponent<GrenadeManager>().Gun = this;
 
