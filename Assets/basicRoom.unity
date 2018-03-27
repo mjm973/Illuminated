@@ -1171,7 +1171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a505012d27118ed47823f88f6bcc12c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grenade: 
   forceMult: 10
 --- !u!4 &1869720818
 Transform:
