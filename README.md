@@ -1,6 +1,10 @@
 # Illuminated
 Final project for Alternate Realities Spring 2018 [Mateo, Ming, Grace, Shantanu]
 
+Check our [Project Proposal](https://github.com/mjm973/Illuminated/blob/master/project_proposal.md)
+
+Check our [Technical specifications](https://github.com/mjm973/Illuminated/blob/master/technical_specifications.md)
+
 ## IMPORTANT NOTE
 
 - Photon Unity Networking/Resources/PhotonServerSettings
@@ -11,7 +15,7 @@ Final project for Alternate Realities Spring 2018 [Mateo, Ming, Grace, Shantanu]
 
 ## IMPORTANT NOTE #2
 
-Please place packages (Photon, SteamVR) inside a folder called Ignore for easy Git ignoring. Thanks.
+Please create folder `Assets/Ignore` and place packages (Photon, SteamVR, and other unused assets) inside folder for easy Git ignoring. Thanks.
 
 ## TODO:
 
