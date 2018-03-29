@@ -39,7 +39,7 @@
   - Sounds - FIRST
   - Textures - FIRST
   - Models - FIRST
-  - UI - NONE
+  - UI - FIRST
 
 #### MILESTONE GOLD - WEEK 14 - 05/01
 
