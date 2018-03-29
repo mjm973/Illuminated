@@ -1474,6 +1474,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 33121419909749300, guid: d75a4539b4dbf224f9d6ee2719ee6ba9,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 1476503964}
+    - target: {fileID: 23741758874721856, guid: d75a4539b4dbf224f9d6ee2719ee6ba9,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1875056472}
     - target: {fileID: 1645611423290522, guid: d75a4539b4dbf224f9d6ee2719ee6ba9, type: 2}
       propertyPath: m_Name
       value: VR_Setup (1)
@@ -1488,21 +1498,10 @@ Prefab:
       propertyPath: instantiationId
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1715091426416200, guid: d75a4539b4dbf224f9d6ee2719ee6ba9, type: 2}
+    - target: {fileID: 1645611423290522, guid: d75a4539b4dbf224f9d6ee2719ee6ba9, type: 2}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 23741758874721856, guid: d75a4539b4dbf224f9d6ee2719ee6ba9,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 1875056472}
-    - target: {fileID: 33121419909749300, guid: d75a4539b4dbf224f9d6ee2719ee6ba9,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 1476503964}
-    m_RemovedComponents:
-    - {fileID: 54890162637537844, guid: d75a4539b4dbf224f9d6ee2719ee6ba9, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d75a4539b4dbf224f9d6ee2719ee6ba9, type: 2}
   m_IsPrefabParent: 0
