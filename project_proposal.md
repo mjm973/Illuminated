@@ -1,4 +1,4 @@
-# Illuminated Project proposal
+  # Illuminated Project proposal
 
 - **Project Name:** *Illuminated*
 - **Team Member:** Mateo, Ming and Shantanu
@@ -34,4 +34,4 @@ Our space is designed to reflect a relatable environment. It withholds its chara
 
 The core concept of the experience is that we hide players’ existences at first but they will have to reveal themselves when exploring the environment or finding others. In this way, the weapon also becomes a weakness: shooting or lighting up others exposes players themselves too.
 
-The concept of exposing both yourself and your opponents provides a blend of action and stealth gameplay. Often, action and stealth mechanics in games do not cooperate, but they coexist. Sneak around unless you’re spotted and then gun down your enemies. Or defeat everyone in sight so that you may slip back into the shadows. One mechanic is employed until it outlives its usefulness, and then gives way to the other. *Illuminated* challenges this relationship by combining its action and stealth elements into a single mechanic, as attacking and hiding are intertwined within the act of shooting: the attack is the stealth.
+The concept of exposing both yourself and your opponents provides a blend of action and stealth gameplay. Often, action and stealth mechanics in games do not cooperate, but coexist. Sneak around unless you’re spotted and then gun down your enemies. Or defeat everyone in sight so that you may slip back into the shadows. One mechanic is employed until it outlives its usefulness, then gives way to the other. *Illuminated* challenges this relationship by combining its action and stealth elements into a single mechanic. Attacking and hiding are intertwined within the act of shooting: the attack *is* the stealth.
