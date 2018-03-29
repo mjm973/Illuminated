@@ -23,7 +23,7 @@
   - Sounds - NONE
   - Textures - FIRST
   - Models - FIRST
-  -- UI - NONE
+  - UI - NONE
 
 #### MILESTONE BETA - WEEK 12 - 04/19
 
@@ -36,7 +36,7 @@
 - **Technical development**: Implement gesture-based weapon swap (reach back to swap) might be harder than expected. Additional weapon(s) might pose their own unique challenges. Straightforward UI.
 - **Media assets**: 
   - Music - NONE
-  - Sounds - NONE
+  - Sounds - FIRST
   - Textures - FIRST
   - Models - FIRST
   - UI - NONE
