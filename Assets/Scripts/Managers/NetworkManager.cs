@@ -5,7 +5,7 @@ using Photon;
 
 // Class to manage our network
 public class NetworkManager : Photon.PunBehaviour {
-    string[] roomNames = { "room", "another", "stupid", "pls work", "fak" };
+    string[] roomNames = { "room" };
     int randIndex;
     RoomInfo[] rooms;
 
@@ -26,7 +26,7 @@ public class NetworkManager : Photon.PunBehaviour {
                 avatarName = "Avatar_Demo";
                 break;
             case AvatarType.VR:
-                avatarName = "Avatar_VR";
+                avatarName = "VR_Setup";
                 break;
         }
 

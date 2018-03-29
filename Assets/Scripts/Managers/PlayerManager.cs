@@ -5,17 +5,29 @@ using Photon;
 
 // Class to sync player to network
 public class PlayerManager : Photon.MonoBehaviour {
-
+    [Header("PUN Parameters")]
+    // PUN Sync variables
     Vector3 targetPos;
     Quaternion targetRot;
+    float targetHealth;
 
+    // To change how fast we interpolate between syncs
     [Range(1, 10)]
     public float interpolationFactor = 5f;
 
+    [Header("Materials")]
     [SerializeField]
     Material visible;
     [SerializeField]
     Material invisible;
+
+    [Header("Gameplay Settings")]
+    [SerializeField]
+    float health = 100f;
+
+    public float Health {
+        get { return health; }
+    }
 
     // Use this for initialization
     void Start() {
@@ -41,14 +53,34 @@ public class PlayerManager : Photon.MonoBehaviour {
         }
     }
 
+    // public method to damage players - called by stuff like grenades, bullets, etc.
+    [PunRPC]
+    public void Damage(float amt) {
+        if (photonView.isMine) {
+            health -= amt;
+
+            if (health < 0) {
+                Die();
+            }
+        } else {
+            photonView.RPC("Damage", photonView.owner, amt);
+        }
+    }
+
+    // method to determine what we do once we are ded (becoming a spectator, for example)
+    void Die() {
+        // do stuff
+    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
         if (stream.isWriting) { // write to network
             stream.SendNext(transform.position);
             stream.SendNext(transform.rotation);
+            //stream.SendNext(health);
         }
         else { // read from network
             targetPos = (Vector3)stream.ReceiveNext();
-            targetRot = (Quaternion)stream.ReceiveNext();
+            //targetRot = (Quaternion)stream.ReceiveNext();
         }
     }
 }
