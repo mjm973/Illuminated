@@ -10,10 +10,16 @@ public class InputManager : Photon.MonoBehaviour {
     public float moveSpeed = 5;
     public float angularSpeed = 120;
     public bool invertY = true;
-	private float dodging = 0;
-	public float initDodgeSpeed = 150;
-	public float decceleration = 2;
-	public float dodgeSpeed = 0;
+    //private float dodging = 0;
+    bool dodging = false;
+    [Range(0, 2)]
+    public float dodgeDistance = 1f;
+    [Range(0, 0.2f)]
+    public float dodgeFactor = 0.1f;
+    Vector3 dodgeTarget = Vector3.zero;
+	//public float initDodgeSpeed = 150;
+	//public float decceleration = 2;
+	//public float dodgeSpeed = 0;
 
 
     [Range(0, 10)]
@@ -60,6 +66,10 @@ public class InputManager : Photon.MonoBehaviour {
     }
 
     void Move() {
+        if (dodging) {
+            return;
+        }
+
         // make vector to store movement input
         Vector3 move = new Vector3();
         // capture WASD/ArrowKey input
@@ -75,45 +85,65 @@ public class InputManager : Photon.MonoBehaviour {
         rb.velocity = transform.rotation*move;
     }
 
-	void Dodge(){
-		if (dodging == 0) {
-			if (Input.GetKeyDown (KeyCode.Q)) {
-				if (dodging == 0) {
-					dodgeSpeed = -initDodgeSpeed;
-				}
-				dodging = 1;
-			} else if (Input.GetKeyDown (KeyCode.E)) {
-				if (dodging == 0) {
-					dodgeSpeed = initDodgeSpeed;
-				}
-				dodging = 2;
+    void Dodge() {
+        if (!dodging) {
+            if (Input.GetKeyDown(KeyCode.Q)) {
+                dodgeTarget = transform.position - transform.right*dodgeDistance;
+            } else if (Input.GetKeyDown(KeyCode.E)) {
+                dodgeTarget = transform.position + transform.right*dodgeDistance;
+            } else {
+                return;
+            }
 
-			}
-		}
+            Debug.Log("nyoom");
+            dodging = true;
+        } else {
+            dodgeTarget.y = transform.position.y;
 
-		if (dodging == 1) {
+            rb.MovePosition(Vector3.Lerp(transform.position, dodgeTarget, dodgeFactor));
+
+            if ((dodgeTarget - transform.position).sqrMagnitude < 0.1f) {
+                dodging = false;
+            }
+        }
+    }
+
+	//void Dodge(){
+	//	if (dodging == 0) {
+	//		if (Input.GetKeyDown (KeyCode.Q)) {
+	//			if (dodging == 0) {
+	//				dodgeSpeed = -initDodgeSpeed;
+	//			}
+	//			dodging = 1;
+	//		} else if (Input.GetKeyDown (KeyCode.E)) {
+	//			if (dodging == 0) {
+	//				dodgeSpeed = initDodgeSpeed;
+	//			}
+	//			dodging = 2;
+
+	//		}
+	//	}
+
+	//	if (dodging == 1) {
 			
-			rb.AddRelativeForce (dodgeSpeed,0,0);
-			dodgeSpeed += decceleration;
+	//		rb.AddRelativeForce (dodgeSpeed,0,0);
+	//		dodgeSpeed += decceleration;
 
-			if (dodgeSpeed == 0) {
-				dodging = 0;
-			}
+	//		if (dodgeSpeed == 0) {
+	//			dodging = 0;
+	//		}
 
-			}
-		if (dodging == 2) {
+	//		}
+	//	if (dodging == 2) {
 
-			rb.AddRelativeForce (dodgeSpeed,0,0);
-			dodgeSpeed -= decceleration;
+	//		rb.AddRelativeForce (dodgeSpeed,0,0);
+	//		dodgeSpeed -= decceleration;
 
-			if (dodgeSpeed == 0) {
-				dodging = 0;
-			}
-
-		}
-
-
-	}
+	//		if (dodgeSpeed == 0) {
+	//			dodging = 0;
+	//		}
+	//	}
+	//}
 
     void Turn() {
         // make vector to store rotation input
@@ -141,5 +171,9 @@ public class InputManager : Photon.MonoBehaviour {
         if (Input.GetMouseButtonDown(0)) {
             gun.Fire();
         }
+    }
+
+    private void OnCollisionStay(Collision collision) {
+        dodging = false;
     }
 }

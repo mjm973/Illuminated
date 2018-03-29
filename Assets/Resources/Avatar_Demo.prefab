@@ -404,6 +404,7 @@ MonoBehaviour:
   interpolationFactor: 5
   visible: {fileID: 2100000, guid: 6f12ca09acf2fc1469360d483ea66572, type: 2}
   invisible: {fileID: 2100000, guid: acf61aacb0f60284ea67b62ef483901a, type: 2}
+  health: 100
 --- !u!114 &114412836896100272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -444,6 +445,8 @@ MonoBehaviour:
   moveSpeed: 5
   angularSpeed: 120
   invertY: 1
+  dodgeDistance: 2
+  dodgeFactor: 0.1
   jumpForce: 5
 --- !u!114 &114603816897868336
 MonoBehaviour:
