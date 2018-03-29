@@ -70,7 +70,7 @@ List the tasks that each member of the team will be focusing on for each week.
 - **Week 10**
   - Mateo: UI for health system. SteamVR supports teleport and trigger synced across network.
   - Ming: SteamVR supports teleport and trigger synced across network.
-  - Shantanu: Develop different types of weapons.
+  - Shantanu: GAME LOGIC! Write the game manager.
 
 - **Week 11**
   - Mateo: Work on other types of weapons, UI and mechanisms.
