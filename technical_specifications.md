@@ -73,23 +73,16 @@ List the tasks that each member of the team will be focusing on for each week.
   - Shantanu: GAME LOGIC! Write the game manager.
 
 - **Week 11**
-  - Mateo: Work on other types of weapons, UI and mechanisms.
+  - Mateo & Shantanu: Work on other types of weapons, UI and mechanisms.
   - Ming: SteamVR supports dash and gesture to change weapons. More UI.
-  - Shantanu: Elaborate spatial layout environment (potentially have different levels/ feels of rooms)
   - All: Initial play testing with basic teleport, illuminate and shoot.
 
 - **Week 12**
-  - Mateo: Create emergence when the game is too peaceful.
-  - Ming: Work on visual and audio responses of game play. 
-  - Shantanu: Elaborate spatial layout environment (let's have different levels/ feels of rooms).
+  - Mateo & Shantanu: Create emergence when the game is too peaceful. Elaborate spatial layout environment (different rooms).
+  - Ming: Work on visual and audio responses of game play. Create the opening scene of game play (potentially cinematic)
 
 - **Week 13**
-  - Mateo: Create the opening scene of game play (potentially cinematic)
-  - Ming: UI for initial instructions on game play and UI for player health & death information across the room
-  - Shantanu: Elaborate spatial layout environment (let's have different levels/ feels of rooms).
-  - All: Final play testing with all functionality
+  - All: Final play testing with all functionality & work on lingering issues
 
 - **Week 14**
-  - Mateo: Work out lingering issues
-  - Ming:  Ditto
-  - Shantanu: Ditto
+  - All: Documentation!
