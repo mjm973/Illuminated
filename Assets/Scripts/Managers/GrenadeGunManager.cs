@@ -34,7 +34,9 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
     // Internal counter to track grenades shot
     int grenadeCounter = 0;
 
-    Transform spawnTip; 
+    Transform spawnTip;
+
+    float dummy;
 
     // Reference to the grenade prefab
     // string now because Photon loads it from the resources folder
@@ -45,24 +47,14 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
     public float forceMult;
 
 	void Start () {
-        spawnTip = transform.Find("Head").Find("GrenadeLauncher").Find("GrenadeSpawnPoint");
+        spawnTip = transform.Find("Controller (right)").Find("GrenadeLauncher").Find("GrenadeSpawnPoint");
 
         grenadeSpawnLocation = spawnTip.position;
 	}
 
 
 	void Update () {
-        // Moved input logic to InputManager
-        //spawnTip = transform.Find("Head").Find("GrenadeLauncher").Find("GrenadeSpawnPoint");
-        //grenadeSpawnLocation = spawnTip.position;
 
-        //if (Input.GetMouseButtonDown(0) && photonView.isMine)
-        //{
-        //    if (IsGrenadeSpawnValid())
-        //    {
-        //        SpawnGrenade();
-        //    }
-        //}
 	}
 
 	// Are there already three of my children grenades in the game?

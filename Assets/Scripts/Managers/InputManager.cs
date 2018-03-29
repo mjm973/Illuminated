@@ -17,9 +17,11 @@ public class InputManager : Photon.MonoBehaviour {
     [Range(0, 0.2f)]
     public float dodgeFactor = 0.1f;
     Vector3 dodgeTarget = Vector3.zero;
-	//public float initDodgeSpeed = 150;
-	//public float decceleration = 2;
-	//public float dodgeSpeed = 0;
+    //public float initDodgeSpeed = 150;
+    //public float decceleration = 2;
+    //public float dodgeSpeed = 0;
+
+    public bool snatchMainCam = false;
 
 
     [Range(0, 10)]
@@ -30,6 +32,8 @@ public class InputManager : Photon.MonoBehaviour {
 
     GrenadeGunManager gun;
 
+    PhotonView view;
+
     // Use this for initialization
     void Start() {
         // Lock cursor to center of the screen to make our lives easier
@@ -37,7 +41,7 @@ public class InputManager : Photon.MonoBehaviour {
         // locate our head
         head = transform.Find("Head");
         // if we are running on our machine, find the main camera and attach it
-        if (photonView.isMine) {
+        if (photonView.isMine && snatchMainCam) {
             Transform mainCam = Camera.main.transform;
             mainCam.position = head.position;
             mainCam.rotation = head.rotation;

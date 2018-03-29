@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon;
 
 // Class to sync player to network
-public class PlayerManager : Photon.MonoBehaviour {
+public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     [Header("PUN Parameters")]
     // PUN Sync variables
     Vector3 targetPos;
@@ -29,24 +29,29 @@ public class PlayerManager : Photon.MonoBehaviour {
         get { return health; }
     }
 
+    PhotonView view;
+
     // Use this for initialization
     void Start() {
+        view = PhotonView.Get(transform.parent.parent);
+
         List<MeshRenderer> meshes = new List<MeshRenderer>();
 
         GetComponentsInChildren<MeshRenderer>(meshes);
 
         foreach (MeshRenderer mr in meshes) {
-            mr.material = photonView.isMine ? visible : invisible;
+            mr.material = view.isMine ? visible : invisible;
         }
 
         targetPos = transform.position;
         targetRot = transform.rotation;
+
     }
 
     // Update is called once per frame
     void Update() {
         // update gameobject of we don't own it
-        if (!photonView.isMine) {
+        if (!view.isMine) {
             float factor = Time.deltaTime * interpolationFactor;
             transform.position = Vector3.Lerp(transform.position, targetPos, factor);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, factor);
