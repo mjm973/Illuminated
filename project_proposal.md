@@ -7,7 +7,7 @@
 
 ## GENERAL OVERVIEW
 
-### OK so what is *Illuminated*?
+### Okay, so: what __is__ *Illuminated*?
 
 *Illuminated* is an adventurous and thrilling first person shooter experience. It inverts your expectations on usual shooter games: instead of seeing and shooting the opponents, you have to illuminate the environment to uncover the position of the other players before taking the killing shot.
 
