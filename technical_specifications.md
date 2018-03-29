@@ -12,10 +12,10 @@
 #### MILESTONE ALPHA - WEEK 10 - 04/05
 
 - **Status**: 
-  - **DONE** Initialize avatars with Vive Headset and Controllers.
-  - **DONE**Implement teleport and trigger to shoot/ illuminate functionality.
+  - **DONE:** Initialize avatars with Vive Headset and Controllers.
+  - **DONE:** Implement teleport and trigger to shoot/ illuminate functionality.
   - Enable direct network connection between two Vives (sync player position and grenade position).
-  - **ALMOST DONE**Complete grenade behaviour with freezing position and exploding.
+  - **ALMOST DONE:** Complete grenade behaviour with freezing position and exploding.
 - **Interaction**: Trigger to shoot, touchpad click to teleport .
 - **Technical development**: Connect game with SteamVR. Make sure VR works over network. Health system and grenade behavior should be straightforward.
 - **Media assets**: 
@@ -64,13 +64,13 @@
 
 List the tasks that each member of the team will be focusing on for each week.
 - **Week 9**
-  - Mateo:**DONE**Implement teleport and trigger to shoot/ illuminate functionality.Implement health system. Work on networked SteamVR avatar creation.
-  - Ming:**DONE**Export PUN prototype to SteamVR. Sync headset and controllers with avatar creation.
-  - Shantanu:**DONE**Build timed grenade freezing and exploding mechanics. Room design
+  - Mateo:**DONE**: Implement teleport and trigger to shoot/ illuminate functionality.Implement health system. Work on networked SteamVR avatar creation.
+  - Ming:**DONE**: Export PUN prototype to SteamVR. Sync headset and controllers with avatar creation.
+  - Shantanu:**DONE**: Build timed grenade freezing and exploding mechanics. Room design
 
 - **Week 10**
   - Mateo: UI for health system. SteamVR supports teleport and trigger synced across network.
-  - Ming:**DONE**SteamVR supports teleport and trigger synced across network.
+  - Ming:**DONE**: SteamVR supports teleport and trigger synced across network.
   - Shantanu: GAME LOGIC! Write the game manager.
 
 - **Week 11**
