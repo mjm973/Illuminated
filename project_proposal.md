@@ -20,7 +20,7 @@ This project is uniquely suited to VR, as a player’s concept of spatiality is 
 
 Social experience is at the core of *Illuminated* for a few reasons. First, it is meant to be a competitive experience, so having at least two people engaging in the space is crucial. The main interactions arise between players in conflict, rather than between a player and their environment. Second, while one can explore the environment by oneself, the act of revealing and finding a second player is also central to the game, as it becomes a chase between actors with incomplete information. The tension builds slowly, spiking when another player is finally revealed, before they dart back into the invisible, and the search is on once more. 
 
-> “The thrill is in the chase, never in the capture” - Agatha Christie
+> “The thrill is in the chase, never in the capture” - Doctor Who
 
 
 ### What kind of experience or emotion do I get playing *Illuminated*?
