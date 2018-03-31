@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 114144515677483478}
   - component: {fileID: 114432599522398362}
   - component: {fileID: 114603816897868336}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Avatar_Demo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,6 +404,7 @@ MonoBehaviour:
   interpolationFactor: 5
   visible: {fileID: 2100000, guid: 6f12ca09acf2fc1469360d483ea66572, type: 2}
   invisible: {fileID: 2100000, guid: acf61aacb0f60284ea67b62ef483901a, type: 2}
+  health: 100
 --- !u!114 &114412836896100272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -441,9 +442,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12a2efb1969dc7144895229cb5f4c425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 20
   angularSpeed: 120
   invertY: 1
+  initDodgeSpeed: 150
+  decceleration: 18
+  dodgeSpeed: 0
   jumpForce: 5
 --- !u!114 &114603816897868336
 MonoBehaviour:
@@ -456,7 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a505012d27118ed47823f88f6bcc12c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMult: 12
+  forceMult: 20
 --- !u!136 &136393514224932174
 CapsuleCollider:
   m_ObjectHideFlags: 1
