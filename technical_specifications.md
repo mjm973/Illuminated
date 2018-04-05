@@ -16,7 +16,7 @@
   - - [X] Initialize avatars with Vive Headset and Controllers.
   - - [X] Implement teleport and trigger to shoot/ illuminate functionality.
   - - [ ] Enable direct network connection between two Vives (sync player position and grenade position).
-  - - [ ] Complete grenade behaviour with freezing position and exploding.
+  - - [X] Complete grenade behaviour with freezing position and exploding.
 - **Interaction**: Trigger to shoot, touchpad click to teleport .
 - **Technical development**: Connect game with SteamVR. Make sure VR works over network. Health system and grenade behavior should be straightforward.
 - **Media assets**: 
