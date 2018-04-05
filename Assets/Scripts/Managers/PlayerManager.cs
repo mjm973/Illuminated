@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon;
@@ -63,11 +63,12 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     public void Damage(float amt) {
         if (photonView.isMine) {
             health -= amt;
-
+            Debug.Log("I just took " + amt + " damage!");
             if (health < 0) {
                 Die();
             }
-        } else {
+        }
+        else {
             photonView.RPC("Damage", photonView.owner, amt);
         }
     }
