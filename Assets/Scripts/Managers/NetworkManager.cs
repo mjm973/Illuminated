@@ -62,7 +62,7 @@ public class NetworkManager : Photon.PunBehaviour {
 
     public override void OnJoinedRoom() {
         //base.OnJoinedRoom();
-
+        print("joining a room");
         PhotonNetwork.Instantiate(avatarName, Vector3.up * 2, Quaternion.identity, 0);
     }
 
