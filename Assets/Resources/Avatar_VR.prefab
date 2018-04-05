@@ -405,7 +405,7 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 3
+  synchronization: 1
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
@@ -430,9 +430,9 @@ MonoBehaviour:
   moveSpeed: 5
   angularSpeed: 120
   invertY: 1
-  initDodgeSpeed: 150
-  decceleration: 2
-  dodgeSpeed: 0
+  dodgeDistance: 1
+  dodgeFactor: 0.1
+  snatchMainCam: 0
   jumpForce: 5
 --- !u!114 &114917805335990866
 MonoBehaviour:
@@ -460,6 +460,7 @@ MonoBehaviour:
   interpolationFactor: 5
   visible: {fileID: 2100000, guid: 6f12ca09acf2fc1469360d483ea66572, type: 2}
   invisible: {fileID: 2100000, guid: acf61aacb0f60284ea67b62ef483901a, type: 2}
+  health: 100
 --- !u!136 &136963870154582248
 CapsuleCollider:
   m_ObjectHideFlags: 1
