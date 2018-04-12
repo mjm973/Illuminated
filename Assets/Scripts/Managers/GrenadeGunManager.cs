@@ -47,15 +47,17 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
     public float forceMult;
 
 	void Start () {
-        spawnTip = transform.Find("Controller (right)").Find("GrenadeLauncher").Find("GrenadeSpawnPoint");
+        spawnTip = transform.Find("Puppet (clone)").Find("Controller (right)").Find("GrenadeLauncher").Find("GrenadeSpawnPoint");
 
         grenadeSpawnLocation = spawnTip.position;
 	}
 
 
 	void Update () {
-
-	}
+        if (spawnTip == null) {
+            spawnTip = transform.Find("Puppet (clone)").Find("Controller (right)").Find("GrenadeLauncher").Find("GrenadeSpawnPoint");
+        }
+    }
 
 	// Are there already three of my children grenades in the game?
     // i.e, of all the grenades in the game, how many of them have photon's isMine as true

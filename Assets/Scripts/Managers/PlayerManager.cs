@@ -7,13 +7,20 @@ using Photon;
 public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     [Header("PUN Parameters")]
     // PUN Sync variables
-    Vector3 targetPos;
-    Quaternion targetRot;
+    Vector3[] targetPositions = new Vector3[3];
+    Quaternion[] targetRotations = new Quaternion[2];
     float targetHealth;
 
     // To change how fast we interpolate between syncs
     [Range(1, 10)]
     public float interpolationFactor = 5f;
+
+    [Header("Puppet References")]
+    public Transform pHead;
+    public Transform pRight;
+    Transform head;
+    Transform body;
+    Transform right;
 
     [Header("Materials")]
     [SerializeField]
@@ -43,9 +50,12 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
             mr.material = view.isMine ? visible : invisible;
         }
 
-        targetPos = transform.position;
-        targetRot = transform.rotation;
+        //targetPos = transform.position;
+        //targetRot = transform.rotation;
 
+        head = transform.Find("Avatar_Head");
+        body = transform.Find("Avatar_Body");
+        right = transform.Find("GrenadeLauncher");
     }
 
     // Update is called once per frame
@@ -53,8 +63,21 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         // update gameobject of we don't own it
         if (!view.isMine) {
             float factor = Time.deltaTime * interpolationFactor;
-            transform.position = Vector3.Lerp(transform.position, targetPos, factor);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, factor);
+            head.position = Vector3.Lerp(transform.position, targetPositions[0], factor);
+            head.rotation = Quaternion.Lerp(transform.rotation, targetRotations[0], factor);
+
+            right.position = Vector3.Lerp(transform.position, targetPositions[1], factor);
+            right.rotation = Quaternion.Lerp(transform.rotation, targetRotations[1], factor);
+
+            body.position = Vector3.Lerp(transform.position, targetPositions[2], factor);
+        } else {
+            head.position = pHead.position;
+            head.rotation = pHead.rotation;
+
+            right.position = pRight.position;
+            right.rotation = pRight.rotation;
+
+            body.position = head.position + Vector3.down;
         }
     }
 
@@ -80,12 +103,24 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
         if (stream.isWriting) { // write to network
-            stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
+            stream.SendNext(head.position);
+            stream.SendNext(right.position);
+            stream.SendNext(body.position);
+
+            stream.SendNext(head.rotation);
+            stream.SendNext(right.rotation);
+
             //stream.SendNext(health);
         }
         else { // read from network
-            targetPos = (Vector3)stream.ReceiveNext();
+            for (int i = 0; i < targetPositions.Length; ++i) {
+                targetPositions[i] = (Vector3)stream.ReceiveNext();
+            }
+
+            for (int i = 0; i < targetRotations.Length; ++i) {
+                targetRotations[i] = (Quaternion)stream.ReceiveNext();
+            }
+
             //targetRot = (Quaternion)stream.ReceiveNext();
         }
     }

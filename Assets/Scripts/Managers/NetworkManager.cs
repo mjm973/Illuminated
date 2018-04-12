@@ -18,6 +18,7 @@ public class NetworkManager : Photon.PunBehaviour {
     AvatarType avatarType;
 
     string avatarName = "";
+    public GameObject VRRig;
 
     // Use this for initialization
     void Start() {
@@ -63,7 +64,12 @@ public class NetworkManager : Photon.PunBehaviour {
     public override void OnJoinedRoom() {
         //base.OnJoinedRoom();
         print("joining a room");
-        PhotonNetwork.Instantiate(avatarName, Vector3.up * 2, Quaternion.identity, 0);
+
+        if (avatarType == AvatarType.Demo) {
+            PhotonNetwork.Instantiate(avatarName, Vector3.up * 2, Quaternion.identity, 0);
+        } else {
+            GameObject.Instantiate(VRRig, Vector3.up * 2, Quaternion.identity);
+        }
     }
 
     public override void OnReceivedRoomListUpdate() {
