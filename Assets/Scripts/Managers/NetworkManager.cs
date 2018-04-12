@@ -11,7 +11,8 @@ public class NetworkManager : Photon.PunBehaviour {
 
     enum AvatarType {
         Demo,
-        VR
+        VR,
+        VR_Test
     }
 
     [SerializeField]
@@ -19,6 +20,7 @@ public class NetworkManager : Photon.PunBehaviour {
 
     string avatarName = "";
     public GameObject VRRig;
+    public GameObject VRTest;
 
     // Use this for initialization
     void Start() {
@@ -65,10 +67,16 @@ public class NetworkManager : Photon.PunBehaviour {
         //base.OnJoinedRoom();
         print("joining a room");
 
-        if (avatarType == AvatarType.Demo) {
-            PhotonNetwork.Instantiate(avatarName, Vector3.up * 2, Quaternion.identity, 0);
-        } else {
-            GameObject.Instantiate(VRRig, Vector3.up * 2, Quaternion.identity);
+        switch (avatarType) {
+            case AvatarType.Demo:
+                PhotonNetwork.Instantiate(avatarName, Vector3.up * 2, Quaternion.identity, 0);
+                break;
+            case AvatarType.VR:
+                GameObject.Instantiate(VRRig, Vector3.up * 2, Quaternion.identity);
+                break;
+            case AvatarType.VR_Test:
+                GameObject.Instantiate(VRTest, Vector3.up * 2, Quaternion.identity);
+                break;
         }
     }
 
