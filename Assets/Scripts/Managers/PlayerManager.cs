@@ -40,7 +40,7 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
     // Use this for initialization
     void Start() {
-        view = PhotonView.Get(transform.parent.parent);
+		view = photonView; //PhotonView.Get(transform.parent.parent);
 
         List<MeshRenderer> meshes = new List<MeshRenderer>();
 

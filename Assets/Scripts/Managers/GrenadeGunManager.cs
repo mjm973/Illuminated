@@ -47,15 +47,13 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
     public float forceMult;
 
 	void Start () {
-        spawnTip = transform.Find("Puppet (clone)").Find("Controller (right)").Find("GrenadeLauncher").Find("GrenadeSpawnPoint");
 
-        grenadeSpawnLocation = spawnTip.position;
 	}
 
 
 	void Update () {
         if (spawnTip == null) {
-            spawnTip = transform.Find("Puppet (clone)").Find("Controller (right)").Find("GrenadeLauncher").Find("GrenadeSpawnPoint");
+			spawnTip = transform.Find("Puppet(Clone)").Find("GrenadeLauncher").Find("GrenadeSpawnPoint");
         }
     }
 
