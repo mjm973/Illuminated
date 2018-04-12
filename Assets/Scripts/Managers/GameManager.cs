@@ -5,12 +5,15 @@ using System.Collections.Generic;       // Because lists
 
 public class GameManager : MonoBehaviour {
 
-    public int numberOfPlayers;
-    public static GameManager instance = null;  // Singleton Design Pattern
-    private BoardManager boardScript;
-    private int playersAlive;               
+    private int currentNumberOfPlayers; // How many players are here and alive in the arena at this instant
+    public int playersNeeded; // How many players need to be spawned into the arena before we are ready to play
+    public static GameManager instance = null;  // Singleton Design Pattern  
+    public bool Player1Alive;
+    public bool Player2Alive;
+    public bool Player3Alive;
+    public bool Player4Alive;
 
-    
+
     void Awake() {
         // Singleton Design Pattern 
         if (instance == null)
@@ -23,24 +26,32 @@ public class GameManager : MonoBehaviour {
 
         // Game Manager Persists
         DontDestroyOnLoad(gameObject);
-
-        // Get a component reference to the attached BoardManager script
-        boardScript = GetComponent<BoardManager>();
-
-        //C all the InitGame function to initialize the first level 
+        
+        //Call the InitGame function to initialize the first level 
         InitGame();
     }
 
-    //Initializes the game for each level.
+    //Initializes the actual deathmatch game mode.
     void InitGame() {
-        //Call the SetupScene function of the BoardManager script, pass it current level number.
-        boardScript.SetupScene(level);
+
+        Player1Alive = true;
+        Player2Alive = true;
+        Player3Alive = true;
+        Player4Alive = true;
 
     }
 
+    // Game is over if only one player is alive
+    bool IsGameOver() {
+        return currentNumberOfPlayers == 1;
+    }
 
+    void SetPlayerCount() {
+
+    }
 
     //Update is called every frame.
     void Update() {
 
     }
+}
