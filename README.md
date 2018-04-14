@@ -19,4 +19,15 @@ Please create folder `Assets/Ignore` and place packages (Photon, SteamVR, and ot
 
 ## TODO:
 
+- Game Logic:
+  - Determine how to start game: does a player controls when to start or a master controls it, or something eles
+
+- Effects:
+  - Add visual/ audio/ haptic feedbacks to shooting and get shot by grenade
+  - UI for player health values (Green to Red for life or almost death) and how many grenades we have
+  
+- Extra:
+  - Avatar modeling
+
+
 ## DONE:
