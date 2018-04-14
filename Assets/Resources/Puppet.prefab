@@ -415,6 +415,7 @@ MonoBehaviour:
   interpolationFactor: 5
   pHead: {fileID: 0}
   pRight: {fileID: 0}
+  debug: 1
   visible: {fileID: 2100000, guid: 6f12ca09acf2fc1469360d483ea66572, type: 2}
   invisible: {fileID: 2100000, guid: acf61aacb0f60284ea67b62ef483901a, type: 2}
   health: 100
