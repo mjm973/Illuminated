@@ -69,13 +69,13 @@ public class NetworkManager : Photon.PunBehaviour {
 
         switch (avatarType) {
             case AvatarType.Demo:
-                PhotonNetwork.Instantiate(avatarName, Vector3.up * 2, Quaternion.identity, 0);
+                PhotonNetwork.Instantiate(avatarName, Vector3.down * 0.85f, Quaternion.identity, 0);
                 break;
             case AvatarType.VR:
-                GameObject.Instantiate(VRRig, Vector3.up * 2, Quaternion.identity);
+                GameObject.Instantiate(VRRig, Vector3.down * 0.85f, Quaternion.identity);
                 break;
             case AvatarType.VR_Test:
-                GameObject.Instantiate(VRTest, Vector3.up * 2, Quaternion.identity);
+                GameObject.Instantiate(VRTest, Vector3.down * 0.85f, Quaternion.identity);
                 break;
         }
     }
