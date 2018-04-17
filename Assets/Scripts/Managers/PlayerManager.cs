@@ -7,8 +7,8 @@ using Photon;
 public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     [Header("PUN Parameters")]
     // PUN Sync variables
-    Vector3[] targetPositions = new Vector3[4];
-    Quaternion[] targetRotations = new Quaternion[3];
+    Vector3[] targetPositions = new Vector3[5];
+    Quaternion[] targetRotations = new Quaternion[4];
     float targetHealth;
 
     // To change how fast we interpolate between syncs
@@ -18,9 +18,11 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     [Header("Puppet References")]
     public Transform pHead;
     public Transform pRight;
+    public Transform pLeft;
     Transform head;
     Transform body;
     Transform right;
+    Transform left;
 
     [Header("Materials")]
     public bool debug = false;
@@ -37,18 +39,24 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         get { return health; }
     }
 
+    public Gradient healthGradient;
+
     PhotonView view;
 
     // Use this for initialization
     void Start() {
-		view = photonView; //PhotonView.Get(transform.parent.parent);
+		view = photonView;
 
         List<MeshRenderer> meshes = new List<MeshRenderer>();
 
         GetComponentsInChildren<MeshRenderer>(meshes);
 
         foreach (MeshRenderer mr in meshes) {
-            mr.material = view.isMine || debug ? visible : invisible;
+            if (!view.isMine) {
+                mr.material = invisible;
+            }
+
+            //mr.material = view.isMine || debug ? visible : invisible;
         }
 
         //targetPos = transform.position;
@@ -57,6 +65,7 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         head = transform.Find("Avatar_Head");
         body = transform.Find("Avatar_Body");
         right = transform.Find("GrenadeLauncher");
+        left = transform.Find("Bracelet");
     }
 
     // Update is called once per frame
@@ -73,15 +82,19 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
             right.position = Vector3.Lerp(right.position, targetPositions[2], factor);
             right.rotation = Quaternion.Lerp(right.rotation, targetRotations[2], factor);
 
-            body.position = Vector3.Lerp(body.position, targetPositions[3], factor);
-        } else {
-            
+            left.position = Vector3.Lerp(left.position, targetPositions[3], factor);
+            left.rotation = Quaternion.Lerp(left.rotation, targetRotations[3], factor);
 
+            body.position = Vector3.Lerp(body.position, targetPositions[4], factor);
+        } else {       
             head.position = pHead.position;
             head.rotation = pHead.rotation;
 
             right.position = pRight.position;
             right.rotation = pRight.rotation;
+
+            left.position = pLeft.position;
+            left.rotation = pLeft.rotation;
 
             body.position = head.position + Vector3.down;
         }
@@ -102,6 +115,19 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         }
     }
 
+    void UpdateBracelet() {
+        if (photonView.isMine) {
+            Color currentHealth = healthGradient.Evaluate(health / 100f);
+
+            UpdateColor(currentHealth);
+        }
+    }
+
+    void UpdateColor(Color col) {
+        Material mat = left.GetComponent<MeshRenderer>().materials[2];
+        mat.SetColor("_Color", col);
+    }
+
     // method to determine what we do once we are ded (becoming a spectator, for example)
     void Die() {
         // do stuff
@@ -112,11 +138,13 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
             stream.SendNext(transform.position);
             stream.SendNext(head.position);
             stream.SendNext(right.position);
+            stream.SendNext(left.position);
             stream.SendNext(body.position);
 
             stream.SendNext(transform.rotation);
             stream.SendNext(head.rotation);
             stream.SendNext(right.rotation);
+            stream.SendNext(left.rotation);
 
             //stream.SendNext(health);
         }
