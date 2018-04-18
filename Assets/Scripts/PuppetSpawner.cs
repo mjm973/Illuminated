@@ -13,7 +13,7 @@ public class PuppetSpawner : Photon.MonoBehaviour {
 		PlayerManager pm = puppet.GetComponent<PlayerManager> ();
 		Transform head = transform.Find ("Camera (eye)");
 		Transform right = transform.Find ("Controller (right)");
-        Transform left = transform.Find("Controller (left");
+        Transform left = transform.Find("Controller (left)");
 
 		pm.pHead = head;
 		pm.pRight = right;

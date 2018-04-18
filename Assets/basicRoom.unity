@@ -156,11 +156,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114715122038218546, guid: d75a4539b4dbf224f9d6ee2719ee6ba9,
-        type: 2}
-      propertyPath: activationDelay
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d75a4539b4dbf224f9d6ee2719ee6ba9, type: 2}
   m_IsPrefabParent: 0
@@ -709,7 +704,7 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1392765907}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!124 &1392765909
 Behaviour:
   m_ObjectHideFlags: 0

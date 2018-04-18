@@ -187,6 +187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c22f795c859f7409e932dc3b9055d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layer:
+    serializedVersion: 2
+    m_Bits: 256
   grenadeFreezeDelay: 2
   grenadeExplosionDelay: 2
   maxHit: 20

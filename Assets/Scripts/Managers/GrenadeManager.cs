@@ -17,6 +17,8 @@ using Photon;
 
 public class GrenadeManager : Photon.MonoBehaviour {
 
+    public LayerMask layer;
+
     public float grenadeFreezeDelay;
     public float grenadeExplosionDelay;
 
@@ -91,11 +93,11 @@ public class GrenadeManager : Photon.MonoBehaviour {
 
     void ExplosionDamage(Vector3 center, float blastRadius) {
         //Debug.Log("Boom!");
-        int layer = 1 << 8; // bitshift to get to the correct layer
+       // int layer = 1 << 8; // bitshift to get to the correct layer
         Collider[] hitColliders = Physics.OverlapSphere(center, blastRadius, layer);
         Debug.Log("I hit " + hitColliders.Length + " players");
         foreach(Collider col in hitColliders) {
-            PlayerManager hurtPlayer = col.GetComponent<PlayerManager>();
+            PlayerManager hurtPlayer = col.GetComponentInParent<PlayerManager>();
 
             // linear damage falloff
             float proximity = (center - hurtPlayer.transform.position).magnitude;

@@ -33,19 +33,28 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
     [Header("Gameplay Settings")]
     [SerializeField]
-    float health = 100f;
+    float maxHealth = 100f;
+    float health;
 
     public float Health {
         get { return health; }
     }
 
+    [Tooltip("Defines the color the bracelet will display from 0% to 100% health")]
     public Gradient healthGradient;
+    [Tooltip("Defines a gradient for the blinking behavior from 0% to 100% health. white is no blink, black is full blink.")]
+    public Gradient blinkGradient;
+    [Tooltip("Defines the blinking period, from 0% to 100% health.")]
+    public AnimationCurve blinkPeriod;
+    [Range(0, 7)]
+    public float glow = 1.0f;
 
     PhotonView view;
 
     // Use this for initialization
     void Start() {
-		view = photonView;
+        health = maxHealth;
+        view = photonView;
 
         List<MeshRenderer> meshes = new List<MeshRenderer>();
 
@@ -55,49 +64,58 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
             if (!view.isMine) {
                 mr.material = invisible;
             }
-
-            //mr.material = view.isMine || debug ? visible : invisible;
         }
-
-        //targetPos = transform.position;
-        //targetRot = transform.rotation;
 
         head = transform.Find("Avatar_Head");
         body = transform.Find("Avatar_Body");
         right = transform.Find("GrenadeLauncher");
         left = transform.Find("Bracelet");
+
+        UpdateBracelet();
     }
 
     // Update is called once per frame
     void Update() {
         // update gameobject of we don't own it
         if (!view.isMine) {
-            float factor = Time.deltaTime * interpolationFactor;
-            transform.position = Vector3.Lerp(transform.position, targetPositions[0], factor);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotations[0], factor);
-
-            head.position = Vector3.Lerp(head.position, targetPositions[1], factor);
-            head.rotation = Quaternion.Lerp(head.rotation, targetRotations[1], factor);
-
-            right.position = Vector3.Lerp(right.position, targetPositions[2], factor);
-            right.rotation = Quaternion.Lerp(right.rotation, targetRotations[2], factor);
-
-            left.position = Vector3.Lerp(left.position, targetPositions[3], factor);
-            left.rotation = Quaternion.Lerp(left.rotation, targetRotations[3], factor);
-
-            body.position = Vector3.Lerp(body.position, targetPositions[4], factor);
-        } else {       
-            head.position = pHead.position;
-            head.rotation = pHead.rotation;
-
-            right.position = pRight.position;
-            right.rotation = pRight.rotation;
-
-            left.position = pLeft.position;
-            left.rotation = pLeft.rotation;
-
-            body.position = head.position + Vector3.down;
+            SyncPuppet();
         }
+        else {
+            MovePuppet();
+            UpdateBracelet();
+        }
+    }
+
+    // updates the puppet position on the network copies
+    void SyncPuppet() {
+        float factor = Time.deltaTime * interpolationFactor;
+        transform.position = Vector3.Lerp(transform.position, targetPositions[0], factor);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotations[0], factor);
+
+        head.position = Vector3.Lerp(head.position, targetPositions[1], factor);
+        head.rotation = Quaternion.Lerp(head.rotation, targetRotations[1], factor);
+
+        right.position = Vector3.Lerp(right.position, targetPositions[2], factor);
+        right.rotation = Quaternion.Lerp(right.rotation, targetRotations[2], factor);
+
+        left.position = Vector3.Lerp(left.position, targetPositions[3], factor);
+        left.rotation = Quaternion.Lerp(left.rotation, targetRotations[3], factor);
+
+        body.position = Vector3.Lerp(body.position, targetPositions[4], factor);
+    }
+
+    // binds puppet position to VR Rig in the master copy
+    void MovePuppet() {
+        head.position = pHead.position;
+        head.rotation = pHead.rotation;
+
+        right.position = pRight.position;
+        right.rotation = pRight.rotation;
+
+        left.position = pLeft.position;
+        left.rotation = pLeft.rotation;
+
+        body.position = head.position + Vector3.down;
     }
 
     // public method to damage players - called by stuff like grenades, bullets, etc.
@@ -115,17 +133,39 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         }
     }
 
+    // updates the color of the bracelet in the master copy
     void UpdateBracelet() {
         if (photonView.isMine) {
-            Color currentHealth = healthGradient.Evaluate(health / 100f);
+            Color currentHealth = CalculateColor(health / maxHealth);
 
             UpdateColor(currentHealth);
         }
     }
 
+    // calculates the color of the bracelet. takes into account the player's health,
+    // puls time to make it blink when health is low
+    Color CalculateColor(float t) {
+        Color baseCol = healthGradient.Evaluate(t);
+        Color blinkCol = blinkGradient.Evaluate(t);
+        float p = blinkPeriod.Evaluate(t);
+        float a = Time.time % p;
+        a /= p;
+
+        Color result = baseCol * (1 - a) + blinkCol * baseCol * a;
+        result.a = 1f;
+
+        return result;
+    }
+
+    // applies a color to the bracelet
     void UpdateColor(Color col) {
-        Material mat = left.GetComponent<MeshRenderer>().materials[2];
-        mat.SetColor("_Color", col);
+        // boost color to hdr levels
+        Color em = col * (1 + glow);
+
+        Material mat = left.GetComponentInChildren<MeshRenderer>().materials[2];
+        //mat.SetColor("_Color", col);
+        mat.color = col;
+        mat.SetColor("_EmissionColor", em);
     }
 
     // method to determine what we do once we are ded (becoming a spectator, for example)
