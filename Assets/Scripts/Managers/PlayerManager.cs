@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon;
+using VRTK;
 
 // Class to sync player to network
 public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
@@ -23,6 +24,9 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     Transform body;
     Transform right;
     Transform left;
+
+    public VRTK_ControllerReference rightRef;
+    public VRTK_ControllerReference leftRef;
 
     [Header("Materials")]
     public bool debug = false;
@@ -118,12 +122,21 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         body.position = head.position + Vector3.down;
     }
 
+    // helper to handle damage feedback
+    void HitFeedback(float t) {
+        VRTK_ControllerHaptics.TriggerHapticPulse(rightRef, t);
+        VRTK_ControllerHaptics.TriggerHapticPulse(leftRef, t);
+    }
+
     // public method to damage players - called by stuff like grenades, bullets, etc.
     [PunRPC]
     public void Damage(float amt) {
         if (photonView.isMine) {
             health -= amt;
             Debug.Log("I just took " + amt + " damage!");
+
+            HitFeedback(amt / 20f);
+
             if (health < 0) {
                 Die();
             }
