@@ -20,10 +20,15 @@ public class PuppetSpawner : Photon.MonoBehaviour {
 		pm.pRight = right;
         pm.pLeft = left;
 
-        VRTK_ControllerReference rRef = new VRTK_ControllerReference(right.gameObject);
+        GameObject rController = right.Find("test_Right").gameObject;
+
+        VRTK_ControllerReference rRef = new VRTK_ControllerReference(rController);
         VRTK_ControllerReference lRef = new VRTK_ControllerReference(left.gameObject);
         pm.rightRef = rRef;
         pm.leftRef = lRef;
+
+        pm.rCont = right.GetComponent<SteamVR_TrackedObject>();
+        pm.lCont = left.GetComponent<SteamVR_TrackedObject>();
     }
 	
 	// Update is called once per frame

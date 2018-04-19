@@ -27,6 +27,8 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
     public VRTK_ControllerReference rightRef;
     public VRTK_ControllerReference leftRef;
+    public SteamVR_TrackedObject rCont;
+    public SteamVR_TrackedObject lCont;
 
     [Header("Materials")]
     public bool debug = false;
@@ -124,8 +126,23 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
     // helper to handle damage feedback
     void HitFeedback(float t) {
-        VRTK_ControllerHaptics.TriggerHapticPulse(rightRef, t);
-        VRTK_ControllerHaptics.TriggerHapticPulse(leftRef, t);
+        //print("buzz " + t);
+        //VRTK_ControllerHaptics.TriggerHapticPulse(rightRef, 1f, 1f, 0f);
+        //VRTK_ControllerHaptics.TriggerHapticPulse(leftRef, t);
+
+        StartCoroutine(PulseHaptics((int)(t * 500), 500));
+    }
+
+    IEnumerator PulseHaptics(int strength, int duration) {
+        float dur = (float)duration / 1000f;
+        float start = Time.time;
+
+        while (Time.time < start + dur) {
+            SteamVR_Controller.Input((int)rCont.index).TriggerHapticPulse((ushort)strength);
+            SteamVR_Controller.Input((int)lCont.index).TriggerHapticPulse((ushort)strength);
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     // public method to damage players - called by stuff like grenades, bullets, etc.
