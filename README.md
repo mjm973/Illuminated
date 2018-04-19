@@ -19,12 +19,13 @@ Please create folder `Assets/Ignore` and place packages (Photon, SteamVR, and ot
 
 ## USER TESTING FEEDBACK APR 19:
 
+- Player not doing what to do
 - More Intricate Level design: there is little incentive to move around right now
 - Bigger teleport radius
 - Grenade lighting radius increase overtime (so I don't reveal myself everytime I shoot)
 - Feedback for hitting or getting hit (particle effect on the grenade to denote radius of damage)
 - Better way to denote health (player doesn't seem to be checking bracelet, so try a screen UI or breathing sound, etc)
-- Use the grip for another type of weapon (raycast, etc)
+- Use the grip for another type of weapon (raycast, etc) 
 
 ## TODO:
 
