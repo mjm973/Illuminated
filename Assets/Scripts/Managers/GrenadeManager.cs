@@ -44,8 +44,6 @@ public class GrenadeManager : Photon.MonoBehaviour {
         }
     }
 
-    
-
     // Use this for initialization
     void Start() {
         //print("Got here");
@@ -113,5 +111,7 @@ public class GrenadeManager : Photon.MonoBehaviour {
                 hurtPlayer.Damage(maxHit * intensity);
             }
         }
+
+        PhotonNetwork.Instantiate("Explosion", transform.position, transform.rotation, 0);
     }
 }

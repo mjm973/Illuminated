@@ -68,7 +68,10 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
         foreach (MeshRenderer mr in meshes) {
             if (!view.isMine) {
-                mr.material = invisible;
+                Material[] mats = mr.materials;
+                for (int i = 0; i < mats.Length; ++i) {
+                    mats[i] = invisible;
+                }
             }
         }
 
@@ -77,7 +80,9 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         right = transform.Find("GrenadeLauncher");
         left = transform.Find("Bracelet");
 
-        UpdateBracelet();
+        if (view.isMine) {
+            UpdateBracelet();
+        }
     }
 
     // Update is called once per frame
