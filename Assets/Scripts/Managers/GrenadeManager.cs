@@ -17,20 +17,42 @@ using Photon;
 
 public class GrenadeManager : Photon.MonoBehaviour {
 
+    #region Grenade Variables
+
     public LayerMask layer;
 
     public float grenadeFreezeDelay;
     public float grenadeExplosionDelay;
 
-    // If you got hit by this grenade at point-blank range, how much damage would you take?
+    [Tooltip("Damage inflicted at point-blank range")]
     public float maxHit;
     public float blastRadius;
 
     [Range(0f, 1f)]
     public float maxHitCutoff;
 
-    // Position sync 
+    #endregion
+
+    #region Light Variables
+
+    [Range(0f, 20f)]
+    [Tooltip("Target radius for the light source")]
+    public float lightRadius = 10f;
+
+    [Range(0f, 1f)]
+    [Tooltip("0 = Light never grows // 1 = Light reaches lightRadius instantly")]
+    public float lerpFactor = 0.1f;
+
+    new Light light;
+
+    #endregion
+
+    #region Photon Sync
+
     Vector3 targetPos;
+    float targetRadius;
+
+    #endregion
 
     // Reference to our grenade launcher
     GrenadeGunManager gun = null;
@@ -46,21 +68,44 @@ public class GrenadeManager : Photon.MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        //print("Got here");
         // Set to kinematic in remote machines - we are lerping the position anyway
         if (!photonView.isMine) {
             GetComponent<Rigidbody>().isKinematic = true;
         }
-        else {
-            
+        else {           
             StartCoroutine(LifetimeCountdown());
         }
+
+        light = GetComponent<Light>();
     }
 
     // Update is called once per frame
     void Update() {
         if (!photonView.isMine) {
-            transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * 5f);
+            SyncGrenade();
+        } else {
+            UpdateGrenade();
+        }
+    }
+
+    // updates network copies of the grenade
+    void SyncGrenade() {
+        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * 5f);
+        float r = Mathf.Lerp(light.range, targetRadius, 0.5f);
+        light.range = r;
+        light.intensity = r;
+    }
+
+    // updates master copy of the grenade
+    void UpdateGrenade() {
+        float r = light.range;
+
+        if (lightRadius - r > 0.01f) {
+            // Lerp light range towards our target (exponential approach)
+            r = Mathf.Lerp(r, lightRadius, lerpFactor);
+            // Apply new value to range and intensity
+            light.range = r;
+            light.intensity = r;
         }
     }
 
@@ -83,9 +128,11 @@ public class GrenadeManager : Photon.MonoBehaviour {
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
         if (stream.isWriting) {
             stream.SendNext(transform.position);
+            stream.SendNext(light.range);
         }
         else {
             targetPos = (Vector3)stream.ReceiveNext();
+            targetRadius = (float)stream.ReceiveNext();
         }
     }
 
@@ -97,17 +144,17 @@ public class GrenadeManager : Photon.MonoBehaviour {
 
             // linear damage falloff
             float proximity = (center - hurtPlayer.transform.position).magnitude;
-            Debug.Log("Proximity: " + proximity);
+            //Debug.Log("Proximity: " + proximity);
             float intensity = 1 - (proximity/blastRadius);
-            Debug.Log("Intensity: " + intensity);
+           // Debug.Log("Intensity: " + intensity);
 
             // if the player is super close to the grenade, hit them for max damage
             if(intensity > maxHitCutoff) {
-                Debug.Log("MAXIMUM DAMAGE!");
+                //Debug.Log("MAXIMUM DAMAGE!");
                 hurtPlayer.Damage(maxHit);
             }
             else {
-                Debug.Log("Hitting for " + (maxHit * intensity));
+                //Debug.Log("Hitting for " + (maxHit * intensity));
                 hurtPlayer.Damage(maxHit * intensity);
             }
         }

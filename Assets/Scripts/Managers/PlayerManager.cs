@@ -135,6 +135,11 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         //VRTK_ControllerHaptics.TriggerHapticPulse(rightRef, 1f, 1f, 0f);
         //VRTK_ControllerHaptics.TriggerHapticPulse(leftRef, t);
 
+        PP_HurtEffect h = head.GetComponentInChildren<PP_HurtEffect>();
+        if (h != null) {
+            h.Trigger();
+        }
+
         StartCoroutine(PulseHaptics((int)(t * 500), 500));
     }
 
