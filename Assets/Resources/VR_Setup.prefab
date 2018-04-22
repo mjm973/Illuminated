@@ -673,6 +673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: 0.5
+  hurtColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &114082061618064034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -886,6 +887,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   left: {fileID: 114739122783980154}
   right: {fileID: 114082061618064034}
+  allowInput: 1
 --- !u!114 &114556639104736536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -985,12 +987,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoPopulateObjectReferences: 1
-  actualBoundaries: {fileID: 1432600297238388}
-  actualHeadset: {fileID: 1435606777609182}
-  actualLeftController: {fileID: 1909117055959188}
-  actualRightController: {fileID: 1030160413840702}
-  modelAliasLeftController: {fileID: 1287924004447714}
-  modelAliasRightController: {fileID: 1838338860122418}
+  actualBoundaries: {fileID: 0}
+  actualHeadset: {fileID: 0}
+  actualLeftController: {fileID: 0}
+  actualRightController: {fileID: 0}
+  modelAliasLeftController: {fileID: 0}
+  modelAliasRightController: {fileID: 0}
   cachedSystemSDKInfo:
     baseTypeName: VRTK.SDK_BaseSystem
     fallbackTypeName: VRTK.SDK_FallbackSystem
@@ -1212,7 +1214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5837af0260a118e4d808bfe0405429a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistOnLoad: 0
+  persistOnLoad: 1
   autoManageScriptDefines: 1
   activeScriptingDefineSymbolsWithoutSDKClasses: []
   scriptAliasLeftController: {fileID: 1624280222451364}
