@@ -1,44 +1,50 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections.Generic;       // Because lists
+using Photon;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : Photon.MonoBehaviour {
 
     private int currentNumberOfPlayers; // How many players are here and alive in the arena at this instant
+    
     public int playersNeeded; // How many players need to be spawned into the arena before we are ready to play
     public static GameManager instance = null;  // Singleton Design Pattern  
-    public bool Player1Alive;
-    public bool Player2Alive;
-    public bool Player3Alive;
-    public bool Player4Alive;
+    private enum playerState { NOTREADY, READY, DEAD, ALIVE, INACTIVE };
+    private playerState hostPlayerState;
+    private playerState clientPlayerState;
+    [SerializeField]
+    List<PlayerManager> players;
+    public bool playersReady;
+    [SerializeField]
+    private int playersAliveForGameOver = 1; // Should normally be 1, but for debugging, who knows, could be anything
+    [SerializeField]
+    private bool gameRunning;
 
 
     void Awake() {
-        // Singleton Design Pattern 
-        if (instance == null)
-            instance = this;
+        // Default to not ready so that we can then check if ready
+        hostPlayerState = playerState.NOTREADY;
+        clientPlayerState = playerState.NOTREADY;
 
-        // Sanity check for Singleton Design Pattern. 
-        // Somehow if we end up with more than one GameManager, enforce singleton rule
-        else if (instance != this)
-            Destroy(gameObject);
-
-        // Game Manager Persists
-        DontDestroyOnLoad(gameObject);
-        
+        playersReady = false;
+        gameRunning = false;
         //Call the InitGame function to initialize the first level 
-        InitGame();
+
     }
 
     //Initializes the actual deathmatch game mode.
     void InitGame() {
-
-        Player1Alive = true;
-        Player2Alive = true;
-        Player3Alive = true;
-        Player4Alive = true;
-
+        Debug.Log("INIT!!!");
+        playersReady = true;
+        hostPlayerState = playerState.READY;
+        clientPlayerState = playerState.READY;
+        Debug.Log("This is where the fun begins!");
+        gameRunning = true;
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+        foreach(GameObject playerObj in playerObjects) {
+            PlayerManager player = playerObj.GetComponent<PlayerManager>();
+            players.Add(player);
+        }
     }
 
     // Game is over if only one player is alive
@@ -46,12 +52,26 @@ public class GameManager : MonoBehaviour {
         return currentNumberOfPlayers == 1;
     }
 
-    void SetPlayerCount() {
-
+    public GameManager getInstance() {
+        return this;
     }
 
     //Update is called every frame.
     void Update() {
+        if (photonView.isMine && Input.GetKeyDown("s") && (hostPlayerState == playerState.NOTREADY) && (clientPlayerState == playerState.NOTREADY)) {
+            InitGame();
+            return;
+        }
+        
+        
+        
+            
+            
+        
+
 
     }
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+    }
 }
+
