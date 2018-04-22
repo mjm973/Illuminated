@@ -27,6 +27,7 @@ public class VRInputManager : Photon.MonoBehaviour {
         right.TriggerClicked += new ControllerInteractionEventHandler(OnTriggerClicked);
 
         left.GripPressed += new ControllerInteractionEventHandler(OnGripPressed);
+        instance = this;
 	}
 	
 	// Update is called once per frame
