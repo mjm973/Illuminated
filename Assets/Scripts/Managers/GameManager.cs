@@ -3,75 +3,240 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon;
 
-public class GameManager : Photon.MonoBehaviour {
+public class GameManager : Photon.MonoBehaviour, IPunObservable {
 
-    private int currentNumberOfPlayers; // How many players are here and alive in the arena at this instant
-    
-    public int playersNeeded; // How many players need to be spawned into the arena before we are ready to play
-    public static GameManager instance = null;  // Singleton Design Pattern  
-    private enum playerState { NOTREADY, READY, DEAD, ALIVE, INACTIVE };
-    private playerState hostPlayerState;
-    private playerState clientPlayerState;
-    [SerializeField]
-    List<PlayerManager> players;
-    public bool playersReady;
-    [SerializeField]
-    private int playersAliveForGameOver = 1; // Should normally be 1, but for debugging, who knows, could be anything
-    [SerializeField]
-    private bool gameRunning;
+    // static reference to the GM. private to avoid tampering.
+    static GameManager gm = null;
+    // static getter for the GM. no setter.
+    public static GameManager GM {
+        get { return gm; }
+    }
 
+    #region Synced States
+
+    // enum to keep track of the game state
+    public enum GameState {
+        Lobby,
+        Match,
+        Over
+    }
+    // actual game state
+    static GameState state = GameState.Lobby;
+    // static getter ditto ditto
+    public static GameState State {
+        get { return state; }
+    }
+
+    #region Player tracking
+
+    public enum PlayerState {
+        None,
+        Wait,
+        Alive,
+        Dead,
+        Over
+    }
+
+    struct Player {
+        public int id;
+        public PlayerState state;
+    }
+
+    int nextPlayerToAdd = 0;
+    List<Player> players = new List<Player>(new Player[4]);
+
+    #endregion
+
+    #endregion
+
+    #region Unity Functions
+
+    private void Start() {
+        // initialize
+        gm = this;
+        state = GameState.Lobby;
+    }
 
     void Awake() {
-        // Default to not ready so that we can then check if ready
-        hostPlayerState = playerState.NOTREADY;
-        clientPlayerState = playerState.NOTREADY;
 
-        playersReady = false;
-        gameRunning = false;
-        //Call the InitGame function to initialize the first level 
-
-    }
-
-    //Initializes the actual deathmatch game mode.
-    void InitGame() {
-        Debug.Log("INIT!!!");
-        playersReady = true;
-        hostPlayerState = playerState.READY;
-        clientPlayerState = playerState.READY;
-        Debug.Log("This is where the fun begins!");
-        gameRunning = true;
-        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
-        foreach(GameObject playerObj in playerObjects) {
-            PlayerManager player = playerObj.GetComponent<PlayerManager>();
-            players.Add(player);
-        }
-    }
-
-    // Game is over if only one player is alive
-    bool IsGameOver() {
-        return currentNumberOfPlayers == 1;
-    }
-
-    public GameManager getInstance() {
-        return this;
     }
 
     //Update is called every frame.
     void Update() {
-        if (photonView.isMine && Input.GetKeyDown("s") && (hostPlayerState == playerState.NOTREADY) && (clientPlayerState == playerState.NOTREADY)) {
-            InitGame();
-            return;
+
+    }
+
+    #endregion
+
+    #region PunRPCs
+
+    [PunRPC] // called by a player to report that they have joined the game
+    public void ReportJoin(int id) {
+
+        // owner copy adds player to player list
+        if (photonView.isMine) {
+
+            // do not add past 4 players
+            if (nextPlayerToAdd >= 4) {
+                return;
+            }
+
+            Player p = new Player();
+            p.state = PlayerState.Wait;
+            p.id = id;
+
+            players[nextPlayerToAdd++] = p;
         }
-        
-        
-        
-            
-            
-        
-
-
+        // borrow copies call RPC on owner
+        else {
+            photonView.RPC("ReportJoin", photonView.owner, id);
+        }
     }
+
+    [PunRPC] // called by a player to report that they have been eliminated
+    public void ReportDeath(int id) {
+
+        // owner copy checks the players array to update player data to Dead
+        if (photonView.isMine) {
+
+            for (int i = 0; i < players.Count; ++i) {
+                Player p = players[i];
+                if (p.id == id) {
+                    p.state = PlayerState.Dead;
+                    break;
+                }
+            }
+
+            if (IsGameOver()) {
+                state = GameState.Over;
+
+                for (int i = 0; i < players.Count; ++i) {
+                    Player p = players[i];
+                    p.state = PlayerState.Over;
+                }
+            }
+        }
+        // borrow copies call the RPC on the owner copy
+        else {
+            photonView.RPC("ReportDeath", photonView.owner, id);
+        }
+    }
+
+    #endregion
+
+    #region PUN Sync
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-    }
-}
+        /* Sync Stuffs:
+         * 1) GameState   
+         * 2) players
+         */
 
+        if (stream.isWriting) {
+            SyncWrite(stream);
+        }
+        else {
+            SyncRead(stream);
+        }
+    }
+
+    void SyncWrite(PhotonStream s) {
+        s.SendNext((int)state);
+
+        for (int i = 0; i < 4; ++i) {
+            s.SendNext(players[i]);
+        }
+    }
+
+    void SyncRead(PhotonStream s) {
+        state = (GameState)s.ReceiveNext();
+
+        for (int i = 0; i < 4; ++i) {
+            Player p = (Player)s.ReceiveNext();
+            if (p.state != PlayerState.None) {
+                players[i] = p;
+            }
+        }
+    }
+
+    #endregion
+
+    #region Local Methods
+
+    // method to start the game
+    public void StartGame() {
+        // can only be called if we own the GM - i.e. we are player 1
+        if (photonView.isMine) {
+
+            switch (state) {
+                case GameState.Lobby:
+                    // start match
+                    state = GameState.Match;
+                    // set player states to alive if not None
+                    for (int i = 0; i < 4; ++i) {
+                        Player p = players[i];
+
+                        if (p.state == PlayerState.None) {
+                            continue;
+                        }
+
+                        p.state = PlayerState.Alive;
+                        players[i] = p;
+                    }
+                    break;
+                case GameState.Match:
+
+                    break;
+                case GameState.Over:
+                    // start match
+                    state = GameState.Lobby;
+                    // set player states to alive if not None
+                    for (int i = 0; i < 4; ++i) {
+                        Player p = players[i];
+
+                        if (p.state == PlayerState.None) {
+                            continue;
+                        }
+
+                        p.state = PlayerState.Wait;
+                        players[i] = p;
+                    }
+                    break;
+            }
+        }
+    }
+
+    // get player state. states are synced so no need for RPC
+    public PlayerState GetState(int id) {
+        foreach (Player p in players) {
+            if (p.id == id) {
+                return p.state;
+            }
+        }
+        // shouldn't happen unless we didn't properly join
+        return PlayerState.None;
+    }
+
+    #endregion
+
+    #region Utility
+
+    bool IsGameOver() {
+        int numPlaying = 0;
+        int numAlive = 0;
+
+        foreach (Player p in players) {
+            PlayerState s = p.state;
+            if (s != PlayerState.None) {
+                ++numPlaying;
+                if (s == PlayerState.Alive) {
+                    ++numAlive;
+                }
+            }
+        }
+
+        return numPlaying >= 2 && numAlive <= 1;
+    }
+
+    #endregion
+}

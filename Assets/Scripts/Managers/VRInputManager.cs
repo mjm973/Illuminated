@@ -12,11 +12,21 @@ public class VRInputManager : Photon.MonoBehaviour {
     VRTK_ControllerEvents right;
 
     GrenadeGunManager gun;
+    public bool allowInput = true;
+
+    static VRInputManager instance;
+    public static VRInputManager Instance {
+        get {
+            return instance;
+        }
+    }
 
     // Use this for initialization
     void Start () {
         gun = GetComponentInChildren<GrenadeGunManager>();
         right.TriggerClicked += new ControllerInteractionEventHandler(OnTriggerClicked);
+
+        left.GripPressed += new ControllerInteractionEventHandler(OnGripPressed);
 	}
 	
 	// Update is called once per frame
@@ -25,6 +35,12 @@ public class VRInputManager : Photon.MonoBehaviour {
 	}
 
     void OnTriggerClicked(object sender, ControllerInteractionEventArgs e) {
-        gun.Fire();
+        if (allowInput) {
+            gun.Fire();
+        }
+    }
+
+    void OnGripPressed(object sender, ControllerInteractionEventArgs e) {
+        GameManager.GM.StartGame();
     }
 }

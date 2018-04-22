@@ -90,6 +90,11 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         // update gameobject of we don't own it
         if (!view.isMine) {
             SyncPuppet();
+
+            // make sure we respawn once we are waiting for a new game
+            if (GameManager.GM.GetState(photonView.viewID) == GameManager.PlayerState.Wait) {
+                Spawn();
+            }
         }
         else {
             MovePuppet();
@@ -211,6 +216,19 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     // method to determine what we do once we are ded (becoming a spectator, for example)
     void Die() {
         // do stuff
+        GameManager.GM.ReportDeath(photonView.viewID);
+        VRInputManager.Instance.allowInput = false;
+    }
+
+    // opposite of die
+    [PunRPC]
+    void Spawn() {
+        // rn it just disables shooting
+        if (photonView.isMine) {
+            VRInputManager.Instance.allowInput = true;
+        } else {
+            photonView.RPC("Spawn", photonView.owner);
+        }
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
