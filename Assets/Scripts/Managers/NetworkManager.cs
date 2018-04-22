@@ -50,7 +50,6 @@ public class NetworkManager : Photon.PunBehaviour {
         else if (PhotonNetwork.room == null) {
             if (GUI.Button(new Rect(100, 100, 250, 100), "New " + roomNames[randIndex])) {
                 PhotonNetwork.CreateRoom(roomNames[randIndex], new RoomOptions() { MaxPlayers = 6, IsVisible = true }, null);
-                PhotonNetwork.Instantiate("GM", Vector3.zero, Quaternion.identity, 0);
             }
 
             if (rooms != null) {

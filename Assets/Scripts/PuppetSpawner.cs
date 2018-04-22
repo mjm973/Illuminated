@@ -8,7 +8,11 @@ public class PuppetSpawner : Photon.MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GameObject puppet = PhotonNetwork.Instantiate ("Puppet", transform.position, Quaternion.identity, 0);
+        if (PhotonNetwork.isMasterClient) {
+            PhotonNetwork.Instantiate("GM", Vector3.zero, Quaternion.identity, 0);
+        }
+
+        GameObject puppet = PhotonNetwork.Instantiate ("Puppet", transform.position, Quaternion.identity, 0);
 		puppet.transform.SetParent (transform);
 
 		PlayerManager pm = puppet.GetComponent<PlayerManager> ();

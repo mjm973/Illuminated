@@ -83,6 +83,8 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         if (view.isMine) {
             UpdateBracelet();
         }
+
+        GameManager.GM.ReportJoin(photonView.viewID);
     }
 
     // Update is called once per frame
