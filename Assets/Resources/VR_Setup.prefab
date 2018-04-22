@@ -1036,7 +1036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableTeleport: 1
   targetListPolicy: {fileID: 0}
-  pointerRenderer: {fileID: 114157029379149396}
+  pointerRenderer: {fileID: 114346009089472404}
   activationButton: 10
   holdButtonToActivate: 1
   activateOnEnable: 0
