@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon;
+using VRTK;
 
 public class PuppetSpawner : Photon.MonoBehaviour {
 
@@ -18,7 +19,17 @@ public class PuppetSpawner : Photon.MonoBehaviour {
 		pm.pHead = head;
 		pm.pRight = right;
         pm.pLeft = left;
-	}
+
+        GameObject rController = right.Find("test_Right").gameObject;
+
+        VRTK_ControllerReference rRef = new VRTK_ControllerReference(rController);
+        VRTK_ControllerReference lRef = new VRTK_ControllerReference(left.gameObject);
+        pm.rightRef = rRef;
+        pm.leftRef = lRef;
+
+        pm.rCont = right.GetComponent<SteamVR_TrackedObject>();
+        pm.lCont = left.GetComponent<SteamVR_TrackedObject>();
+    }
 	
 	// Update is called once per frame
 	void Update () {

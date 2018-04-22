@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 114629249659576306}
   - component: {fileID: 114715122038218546}
   - component: {fileID: 114157029379149396}
+  - component: {fileID: 114346009089472404}
   m_Layer: 0
   m_Name: test_Right
   m_TagString: Untagged
@@ -131,7 +132,8 @@ GameObject:
   - component: {fileID: 4136561013203494}
   - component: {fileID: 20494381372317468}
   - component: {fileID: 124417162956315936}
-  - component: {fileID: 114306209425215482}
+  - component: {fileID: 114007975878178980}
+  - component: {fileID: 114584027828046276}
   m_Layer: 0
   m_Name: Camera (eye)
   m_TagString: MainCamera
@@ -562,7 +564,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1624280222451364}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -596,7 +598,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1424860786618498}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -659,6 +661,18 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1693061029933918}
   m_Enabled: 1
+--- !u!114 &114007975878178980
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1435606777609182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e21281f244b3c02459e59242f7927891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: 0.5
 --- !u!114 &114082061618064034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -726,7 +740,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1424860786618498}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fc65878c7102524bb8c2bcfbefff497, type: 3}
   m_Name: 
@@ -746,7 +760,7 @@ MonoBehaviour:
   invalidCollisionColor: {r: 1, g: 0, b: 0, a: 1}
   tracerVisibility: 0
   cursorVisibility: 0
-  maximumLength: 5
+  maximumLength: 10
   scaleFactor: 0.002
   cursorScaleMultiplier: 25
   cursorMatchTargetRotation: 0
@@ -778,20 +792,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   origin: {fileID: 0}
---- !u!114 &114306209425215482
+--- !u!114 &114346009089472404
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1435606777609182}
+  m_GameObject: {fileID: 1424860786618498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bca9ccf900ccc84c887d783321d27e2, type: 3}
+  m_Script: {fileID: 11500000, guid: bd904f4ca6767424eaf8e050bc174741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _head: {fileID: 4625882302704082}
-  _ears: {fileID: 4785288313132082}
-  wireframe: 0
+  playareaCursor: {fileID: 0}
+  directionIndicator: {fileID: 0}
+  customRaycast: {fileID: 0}
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 4
+  pointerOriginSmoothingSettings:
+    smoothsPosition: 0
+    maxAllowedPerFrameDistanceDifference: 0.003
+    smoothsRotation: 0
+    maxAllowedPerFrameAngleDifference: 1.5
+  validCollisionColor: {r: 0, g: 1, b: 0, a: 1}
+  invalidCollisionColor: {r: 1, g: 0, b: 0, a: 1}
+  tracerVisibility: 0
+  cursorVisibility: 0
+  maximumLength: {x: 10, y: Infinity}
+  tracerDensity: 10
+  cursorRadius: 0.5
+  heightLimitAngle: 100
+  curveOffset: 1
+  rescaleTracer: 0
+  cursorMatchTargetRotation: 0
+  collisionCheckFrequency: 0
+  customTracer: {fileID: 0}
+  customCursor: {fileID: 0}
+  validLocationObject: {fileID: 0}
+  invalidLocationObject: {fileID: 0}
 --- !u!114 &114383943238430624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -860,6 +898,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceMult: 12
+--- !u!114 &114584027828046276
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1435606777609182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bca9ccf900ccc84c887d783321d27e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _head: {fileID: 4625882302704082}
+  _ears: {fileID: 4785288313132082}
+  wireframe: 0
 --- !u!114 &114600636715178478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -984,11 +1036,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableTeleport: 1
   targetListPolicy: {fileID: 0}
-  pointerRenderer: {fileID: 114157029379149396}
+  pointerRenderer: {fileID: 114346009089472404}
   activationButton: 10
   holdButtonToActivate: 1
   activateOnEnable: 0
-  activationDelay: 0
+  activationDelay: 1
   selectionButton: 10
   selectOnPress: 0
   selectionDelay: 0
@@ -1078,10 +1130,12 @@ MonoBehaviour:
   pHead: {fileID: 0}
   pRight: {fileID: 0}
   pLeft: {fileID: 0}
+  rCont: {fileID: 0}
+  lCont: {fileID: 0}
   debug: 0
   visible: {fileID: 2100000, guid: 6f12ca09acf2fc1469360d483ea66572, type: 2}
   invisible: {fileID: 2100000, guid: acf61aacb0f60284ea67b62ef483901a, type: 2}
-  health: 100
+  maxHealth: 100
   healthGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -1140,6 +1194,13 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 3
+  blinkPeriod:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  glow: 1
 --- !u!114 &114945767693952538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1175,7 +1236,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1424860786618498}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -1188,7 +1249,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1624280222451364}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
