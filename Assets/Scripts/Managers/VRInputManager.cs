@@ -36,7 +36,8 @@ public class VRInputManager : Photon.MonoBehaviour {
 	}
 
     void OnTriggerClicked(object sender, ControllerInteractionEventArgs e) {
-        if (allowInput) {
+        GameManager.PlayerState s = GameManager.GM.GetState(PlayerManager.Player.photonView.viewID);
+        if (s == GameManager.PlayerState.Alive) {
             gun.Fire();
         }
     }

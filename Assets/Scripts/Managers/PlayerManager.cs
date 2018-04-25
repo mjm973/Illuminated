@@ -57,6 +57,16 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
     PhotonView view;
 
+    static PlayerManager player;
+    public static PlayerManager Player {
+        get { return player; }
+    }
+
+    [Header("Audio")]
+    new AudioSource audio;
+    public AudioClip hurtSound;
+    public AudioClip deadSound;
+
     // Use this for initialization
     void Start() {
         health = maxHealth;
@@ -82,9 +92,11 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
         if (view.isMine) {
             UpdateBracelet();
-        }
+            player = this;
+            GameManager.GM.ReportJoin(photonView.viewID);
 
-        GameManager.GM.ReportJoin(photonView.viewID);
+            audio = GetComponent<AudioSource>();
+        }
     }
 
     // Update is called once per frame
@@ -173,6 +185,8 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
             if (health < 0) {
                 Die();
+            } else if (audio != null && hurtSound != null) {
+                audio.PlayOneShot(hurtSound);
             }
         }
         else {
@@ -218,6 +232,10 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     // method to determine what we do once we are ded (becoming a spectator, for example)
     void Die() {
         // do stuff
+        if (audio != null && deadSound != null) {
+            audio.PlayOneShot(deadSound);
+        }
+
         GameManager.GM.ReportDeath(photonView.viewID);
         VRInputManager.Instance.allowInput = false;
     }
@@ -231,6 +249,11 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         } else {
             photonView.RPC("Spawn", photonView.owner);
         }
+    }
+
+    // utility to fetch player state from GM
+    GameManager.PlayerState State() {
+        return GameManager.GM.GetState(photonView.viewID);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {

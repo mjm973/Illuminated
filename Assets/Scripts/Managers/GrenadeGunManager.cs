@@ -46,8 +46,11 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
     // How strong we push grenade
     public float forceMult;
 
-	void Start () {
+    new AudioSource audio;
+    public AudioClip shootSound;
 
+	void Start () {
+        audio = GetComponent<AudioSource>();
 	}
 
 
@@ -79,6 +82,10 @@ public class GrenadeGunManager : Photon.MonoBehaviour {
         if (IsGrenadeSpawnValid()) {
             grenadeSpawnLocation = spawnTip.position;
             SpawnGrenade();
+
+            if (audio != null && shootSound != null) {
+                audio.PlayOneShot(shootSound);
+            }
         }
     }
 

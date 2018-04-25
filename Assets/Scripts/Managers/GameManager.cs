@@ -228,20 +228,35 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable {
     #region Utility
 
     bool IsGameOver() {
-        int numPlaying = 0;
-        int numAlive = 0;
+        return NumPlayers() >= 2 && NumAlive() <= 1;
+    }
+
+    // how many players
+    public int NumPlayers() {
+        int num = 0;
 
         foreach (Player p in players) {
             PlayerState s = p.state;
             if (s != PlayerState.None) {
-                ++numPlaying;
-                if (s == PlayerState.Alive) {
-                    ++numAlive;
-                }
+                ++num;
             }
         }
 
-        return numPlaying >= 2 && numAlive <= 1;
+        return num;
+    }
+
+    // how many left
+    public int NumAlive() {
+        int num = 0;
+
+        foreach (Player p in players) {
+            PlayerState s = p.state;
+            if (s == PlayerState.Alive) {
+                ++num;
+            }
+        }
+
+        return num;
     }
 
     #endregion
