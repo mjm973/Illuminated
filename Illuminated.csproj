@@ -694,6 +694,7 @@
     <Compile Include="Assets\Scripts\Managers\VRInputManager.cs" />
     <Compile Include="Assets\Scripts\PP_HurtEffect.cs" />
     <Compile Include="Assets\Scripts\PuppetSpawner.cs" />
+    <Compile Include="Assets\Scripts\SpawnPoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Ignore\Photon Unity Networking\changelog.txt" />

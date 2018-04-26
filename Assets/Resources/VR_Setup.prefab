@@ -319,7 +319,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1645611423290522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.7608066, y: -4.0090822e-18, z: 1.3017871}
+  m_LocalPosition: {x: 0.87470406, y: -4.1806817e-18, z: 1.3575072}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4101026819947136}
@@ -981,7 +981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceMult: 12
-  shootSound: {fileID: 0}
+  shootSound: {fileID: 8300000, guid: ad9e0926dc24d8e4280fe5576137087b, type: 3}
 --- !u!114 &114584027828046276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1285,6 +1285,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   glow: 1
+  hurtSound: {fileID: 0}
+  deadSound: {fileID: 0}
 --- !u!114 &114945767693952538
 MonoBehaviour:
   m_ObjectHideFlags: 1

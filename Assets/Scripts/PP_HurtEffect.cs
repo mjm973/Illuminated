@@ -18,6 +18,7 @@ public class PP_HurtEffect : MonoBehaviour {
 
 	public Color hurtColor = Color.red;
 
+
     // Use this for initialization
     void Start() {
         mat = new Material(Shader.Find("Effect/Hurt"));
