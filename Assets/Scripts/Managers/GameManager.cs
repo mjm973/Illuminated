@@ -151,6 +151,18 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable
 		}
 	}
 
+	[PunRPC] // to trigger music changes
+	void AudioFadeIn (AudioClip clip)
+	{
+		bgm.clip = clip;
+		bgm.loop = true;
+		bgm.volume = 0;
+		bgm.Play ();
+
+		targetVolume = 1f;
+		lastTime = Time.time;
+	}
+
 	#endregion
 
 	#region PUN Sync
@@ -221,12 +233,8 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable
 					p.state = PlayerState.Alive;
 					players [i] = p;
 				}
-
-				bgm.clip = matchBgm;
-				bgm.volume = 0.01f;
-				bgm.loop = true;
-				bgm.Play ();
-				AudioFadeIn ();
+					
+				photonView.RPC("AudioFadeIn", PhotonTargets.AllBuffered, matchBgm);
 				break;
 			case GameState.Match:
 
@@ -301,11 +309,7 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable
 		return num;
 	}
 
-	void AudioFadeIn ()
-	{
-		targetVolume = 1f;
-		lastTime = Time.time;
-	}
+
 
 	void AudioFadeOut ()
 	{
