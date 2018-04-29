@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon;
+using VRTK;
 
 // Class to sync player to network
 public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
@@ -23,6 +24,11 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     Transform body;
     Transform right;
     Transform left;
+
+    public VRTK_ControllerReference rightRef;
+    public VRTK_ControllerReference leftRef;
+    public SteamVR_TrackedObject rCont;
+    public SteamVR_TrackedObject lCont;
 
     [Header("Materials")]
     public bool debug = false;
@@ -51,6 +57,16 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
     PhotonView view;
 
+    static PlayerManager player;
+    public static PlayerManager Player {
+        get { return player; }
+    }
+
+    [Header("Audio")]
+    new AudioSource audio;
+    public AudioClip hurtSound;
+    public AudioClip deadSound;
+
     // Use this for initialization
     void Start() {
         health = maxHealth;
@@ -62,7 +78,10 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
         foreach (MeshRenderer mr in meshes) {
             if (!view.isMine) {
-                mr.material = invisible;
+                Material[] mats = mr.materials;
+                for (int i = 0; i < mats.Length; ++i) {
+                    mats[i] = invisible;
+                }
             }
         }
 
@@ -71,7 +90,13 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         right = transform.Find("GrenadeLauncher");
         left = transform.Find("Bracelet");
 
-        UpdateBracelet();
+        if (view.isMine) {
+            UpdateBracelet();
+            player = this;
+            GameManager.GM.ReportJoin(photonView.viewID);
+
+            audio = GetComponent<AudioSource>();
+        }
     }
 
     // Update is called once per frame
@@ -79,6 +104,11 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         // update gameobject of we don't own it
         if (!view.isMine) {
             SyncPuppet();
+
+            // make sure we respawn once we are waiting for a new game
+            if (GameManager.GM.GetState(photonView.viewID) == GameManager.PlayerState.Wait) {
+                Spawn();
+            }
         }
         else {
             MovePuppet();
@@ -118,14 +148,45 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         body.position = head.position + Vector3.down;
     }
 
+    // helper to handle damage feedback
+    void HitFeedback(float t) {
+        //print("buzz " + t);
+        //VRTK_ControllerHaptics.TriggerHapticPulse(rightRef, 1f, 1f, 0f);
+        //VRTK_ControllerHaptics.TriggerHapticPulse(leftRef, t);
+
+		PP_HurtEffect h = PP_HurtEffect.HurtEffect;
+        if (h != null) {
+            h.Trigger();
+        }
+
+        StartCoroutine(PulseHaptics((int)(t * 500), 500));
+    }
+
+    IEnumerator PulseHaptics(int strength, int duration) {
+        float dur = (float)duration / 1000f;
+        float start = Time.time;
+
+        while (Time.time < start + dur) {
+            SteamVR_Controller.Input((int)rCont.index).TriggerHapticPulse((ushort)strength);
+            SteamVR_Controller.Input((int)lCont.index).TriggerHapticPulse((ushort)strength);
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
     // public method to damage players - called by stuff like grenades, bullets, etc.
     [PunRPC]
     public void Damage(float amt) {
         if (photonView.isMine) {
             health -= amt;
             Debug.Log("I just took " + amt + " damage!");
+
+            HitFeedback(amt / 20f);
+
             if (health < 0) {
                 Die();
+            } else if (audio != null && hurtSound != null) {
+                audio.PlayOneShot(hurtSound);
             }
         }
         else {
@@ -171,6 +232,28 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     // method to determine what we do once we are ded (becoming a spectator, for example)
     void Die() {
         // do stuff
+        if (audio != null && deadSound != null) {
+            audio.PlayOneShot(deadSound);
+        }
+
+        GameManager.GM.ReportDeath(photonView.viewID);
+        VRInputManager.Instance.allowInput = false;
+    }
+
+    // opposite of die
+    [PunRPC]
+    void Spawn() {
+        // rn it just disables shooting
+        if (photonView.isMine) {
+            VRInputManager.Instance.allowInput = true;
+        } else {
+            photonView.RPC("Spawn", photonView.owner);
+        }
+    }
+
+    // utility to fetch player state from GM
+    GameManager.PlayerState State() {
+        return GameManager.GM.GetState(photonView.viewID);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
