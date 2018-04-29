@@ -134,7 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd5f9c0d19ff57a44bdc43cd634b7f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matchBgm: {fileID: 8300000, guid: 6361eab0b5bd3ac4f99b388d57843395, type: 3}
+  bgmList:
+  - {fileID: 8300000, guid: 6361eab0b5bd3ac4f99b388d57843395, type: 3}
   fadeTime: 5
 --- !u!114 &114692612872118212
 MonoBehaviour:
