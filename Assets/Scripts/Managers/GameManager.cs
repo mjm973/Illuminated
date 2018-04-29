@@ -16,7 +16,7 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable
 	#region BGM
 
 	AudioSource bgm;
-	public AudioClip matchBgm;
+	public AudioClip[] bgmList;
 
 	float targetVolume = 0f;
 	float lastTime = 0f;
@@ -152,9 +152,9 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable
 	}
 
 	[PunRPC] // to trigger music changes
-	void AudioFadeIn (AudioClip clip)
+	void AudioFadeIn (int i)
 	{
-		bgm.clip = clip;
+		bgm.clip = bgmList[i];
 		bgm.loop = true;
 		bgm.volume = 0;
 		bgm.Play ();
@@ -234,7 +234,7 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable
 					players [i] = p;
 				}
 					
-				photonView.RPC("AudioFadeIn", PhotonTargets.AllBuffered, matchBgm);
+				photonView.RPC("AudioFadeIn", PhotonTargets.AllBuffered, 0);
 				break;
 			case GameState.Match:
 
