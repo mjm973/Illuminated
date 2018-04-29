@@ -30,6 +30,9 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     public SteamVR_TrackedObject rCont;
     public SteamVR_TrackedObject lCont;
 
+	[Range(0, 1)]
+	public float bodyHeight;
+
     [Header("Materials")]
     public bool debug = false;
     [SerializeField]
@@ -145,7 +148,7 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         left.position = pLeft.position;
         left.rotation = pLeft.rotation;
 
-        body.position = head.position + Vector3.down;
+		body.position = head.position + Vector3.down*bodyHeight;
     }
 
     // helper to handle damage feedback
