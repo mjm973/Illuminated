@@ -83,13 +83,8 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable
 	//Update is called every frame.
 	void Update ()
 	{
-		if (photonView.isMine) {
-			print (targetVolume);
-			print (bgm.volume);
-			if (Mathf.Abs (targetVolume - bgm.volume) > 0.01f) {
-				bgm.volume = Mathf.Lerp (bgm.volume, targetVolume, (Time.time - lastTime) / fadeTime);
-				print ("Fading...");
-			}
+		if (Mathf.Abs (targetVolume - bgm.volume) > 0.01f) {
+			bgm.volume = Mathf.Lerp (bgm.volume, targetVolume, (Time.time - lastTime) / fadeTime);
 		}
 	}
 
@@ -154,7 +149,7 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable
 	[PunRPC] // to trigger music changes
 	void AudioFadeIn (int i)
 	{
-		bgm.clip = bgmList[i];
+		bgm.clip = bgmList [i];
 		bgm.loop = true;
 		bgm.volume = 0;
 		bgm.Play ();
@@ -234,7 +229,7 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable
 					players [i] = p;
 				}
 					
-				photonView.RPC("AudioFadeIn", PhotonTargets.AllBuffered, 0);
+				photonView.RPC ("AudioFadeIn", PhotonTargets.AllBuffered, 0);
 				break;
 			case GameState.Match:
 
