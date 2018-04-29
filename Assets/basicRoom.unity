@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.29553422, g: 0.3543305, b: 0.47591704, a: 1}
+  m_IndirectSpecularColor: {r: 0.124354675, g: 0.17978542, b: 0.26300237, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -155,6 +155,36 @@ Prefab:
     - target: {fileID: 1645611423290522, guid: d75a4539b4dbf224f9d6ee2719ee6ba9, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114687574505049082, guid: d75a4539b4dbf224f9d6ee2719ee6ba9,
+        type: 2}
+      propertyPath: actualBoundaries
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114687574505049082, guid: d75a4539b4dbf224f9d6ee2719ee6ba9,
+        type: 2}
+      propertyPath: actualHeadset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114687574505049082, guid: d75a4539b4dbf224f9d6ee2719ee6ba9,
+        type: 2}
+      propertyPath: actualLeftController
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114687574505049082, guid: d75a4539b4dbf224f9d6ee2719ee6ba9,
+        type: 2}
+      propertyPath: actualRightController
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114687574505049082, guid: d75a4539b4dbf224f9d6ee2719ee6ba9,
+        type: 2}
+      propertyPath: modelAliasLeftController
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114687574505049082, guid: d75a4539b4dbf224f9d6ee2719ee6ba9,
+        type: 2}
+      propertyPath: modelAliasRightController
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d75a4539b4dbf224f9d6ee2719ee6ba9, type: 2}
