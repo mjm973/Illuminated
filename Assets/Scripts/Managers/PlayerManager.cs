@@ -109,6 +109,7 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
             ui = GameObject.Instantiate(canvas, transform.position + transform.forward * uiDist, Quaternion.identity);
             ui.transform.SetParent(transform.Find("Avatar_Head"));
+			ui.transform.localScale = new Vector3 (0.007f, 0.007f, 0.007f);
         }
     }
 
@@ -152,6 +153,8 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     void MovePuppet() {
         head.position = pHead.position;
         head.rotation = pHead.rotation;
+
+		head.parent.position = head.position;
 
         right.position = pRight.position;
         right.rotation = pRight.rotation;
