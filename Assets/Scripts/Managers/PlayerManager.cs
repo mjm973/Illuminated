@@ -86,12 +86,19 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
         GetComponentsInChildren<MeshRenderer>(meshes);
 
+        print(string.Format("Meshes: {0}", meshes.Count));
+
         foreach (MeshRenderer mr in meshes) {
             if (!view.isMine) {
                 Material[] mats = mr.materials;
+
+                print(string.Format("Materials: {0}", mats.Length));
+
                 for (int i = 0; i < mats.Length; ++i) {
                     mats[i] = invisible;
                 }
+
+                mr.materials = mats;
             }
         }
 
