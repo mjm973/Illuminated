@@ -119,6 +119,8 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable {
                 if (p.id == id) {
                     p.state = PlayerState.Dead;
                     print(string.Format("Player with ID {0} is now dead", id));
+
+                    players[i] = p;
                     break;
                 }
             }
@@ -129,6 +131,7 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable {
                 for (int i = 0; i < players.Count; ++i) {
                     Player p = players[i];
                     p.state = PlayerState.Over;
+                    players[i] = p;
                 }
             }
         }
