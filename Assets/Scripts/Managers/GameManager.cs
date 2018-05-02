@@ -136,6 +136,9 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable {
 
                 for (int i = 0; i < players.Count; ++i) {
                     Player p = players[i];
+                    if (p.state == PlayerState.None) {
+                        continue;
+                    }
                     p.state = PlayerState.Over;
                     players[i] = p;
                 }
@@ -182,7 +185,6 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable {
         for (int i = 0; i < 4; ++i) {
             s.SendNext(players[i].id);
             s.SendNext((int)players[i].state);
-
         }
     }
 
