@@ -277,6 +277,7 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         // rn it just disables shooting
         if (photonView.isMine) {
             VRInputManager.Instance.allowInput = true;
+            health = maxHealth;
         } else {
             photonView.RPC("Spawn", photonView.owner);
         }
