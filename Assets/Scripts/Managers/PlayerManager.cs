@@ -31,8 +31,8 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     public SteamVR_TrackedObject rCont;
     public SteamVR_TrackedObject lCont;
 
-	[Range(0, 1)]
-	public float bodyHeight;
+    [Range(0, 1)]
+    public float bodyHeight;
 
     [Header("Materials")]
     public bool debug = false;
@@ -117,7 +117,7 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
             ui = GameObject.Instantiate(canvas, transform.position + transform.forward * uiDist, Quaternion.identity);
             ui.transform.SetParent(transform.Find("Avatar_Head"));
-			ui.transform.localScale = new Vector3 (0.007f, 0.007f, 0.007f);
+            ui.transform.localScale = new Vector3(0.007f, 0.007f, 0.007f);
         }
     }
 
@@ -162,7 +162,7 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         head.position = pHead.position;
         head.rotation = pHead.rotation;
 
-		head.parent.position = head.position;
+        head.parent.position = head.position;
 
         right.position = pRight.position;
         right.rotation = pRight.rotation;
@@ -170,7 +170,7 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         left.position = pLeft.position;
         left.rotation = pLeft.rotation;
 
-		body.position = head.position + Vector3.down*bodyHeight;
+        body.position = head.position + Vector3.down * bodyHeight;
     }
 
     // helper to handle damage feedback
@@ -179,7 +179,7 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         //VRTK_ControllerHaptics.TriggerHapticPulse(rightRef, 1f, 1f, 0f);
         //VRTK_ControllerHaptics.TriggerHapticPulse(leftRef, t);
 
-		PP_HurtEffect h = PP_HurtEffect.HurtEffect;
+        PP_HurtEffect h = PP_HurtEffect.HurtEffect;
         if (h != null) {
             h.Trigger();
         }
@@ -208,7 +208,8 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
             if (health <= 0) {
                 Die();
-            } else if (audio != null && hurtSound != null) {
+            }
+            else if (audio != null && hurtSound != null) {
                 audio.PlayOneShot(hurtSound);
             }
         }
@@ -255,7 +256,32 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     // updates ui to reflect numebr of players left
     void UpdateDeathCount() {
         Text t = ui.transform.Find("DeathCount").GetComponent<Text>();
-        t.text = string.Format("Players Remaining: {0}/{1}", GameManager.GM.NumAlive(), GameManager.GM.NumPlayers());
+        GameManager.PlayerState ps = GameManager.GM.GetState(photonView.viewID);
+
+        switch (GameManager.State) {
+            case GameManager.GameState.Lobby:
+                t.text = string.Format("Waiting for players: {0}/4 joined", GameManager.GM.NumPlayers());
+                break;
+            case GameManager.GameState.Match:
+                if (ps == GameManager.PlayerState.Alive) {
+                    t.text = string.Format("Players Remaining: {0}/{1}", GameManager.GM.NumAlive(), GameManager.GM.NumPlayers());
+                }
+                else if (ps == GameManager.PlayerState.Dead) {
+                    t.text = string.Format("ILLUMINATED");
+                }
+
+                break;
+            case GameManager.GameState.Over:
+                if (ps == GameManager.PlayerState.Over) {
+                    t.text = string.Format("GAME OVER");
+                }
+                else if (ps == GameManager.PlayerState.Winner) {
+                    t.text = string.Format("WINNER");
+                }
+
+                break;
+        }
+
     }
 
     // method to determine what we do once we are ded (becoming a spectator, for example)
@@ -278,7 +304,8 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         if (photonView.isMine) {
             VRInputManager.Instance.allowInput = true;
             health = maxHealth;
-        } else {
+        }
+        else {
             photonView.RPC("Spawn", photonView.owner);
         }
     }

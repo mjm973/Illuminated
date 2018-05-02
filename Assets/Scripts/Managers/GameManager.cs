@@ -46,7 +46,8 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable {
         Wait,
         Alive,
         Dead,
-        Over
+        Over,
+        Winner
     }
 
     struct Player {
@@ -139,7 +140,13 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable {
                     if (p.state == PlayerState.None) {
                         continue;
                     }
-                    p.state = PlayerState.Over;
+
+                    if (p.state == PlayerState.Alive) {
+                        p.state = PlayerState.Winner;
+                    } else {
+                        p.state = PlayerState.Over;
+                    }
+
                     players[i] = p;
                 }
             }

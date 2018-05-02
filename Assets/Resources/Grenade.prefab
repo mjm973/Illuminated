@@ -265,7 +265,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   grenadeFreezeDelay: 2
-  grenadeExplosionDelay: 2
+  grenadeExplosionDelay: 0.5
   maxHit: 20
   blastRadius: 7.5
   maxHitCutoff: 0
