@@ -96,6 +96,12 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable {
                 return;
             }
 
+            foreach (Player play in players) {
+                if (play.id == id) {
+                    return;
+                }
+            }
+
             Player p = new Player();
             p.state = PlayerState.Wait;
             p.id = id;
