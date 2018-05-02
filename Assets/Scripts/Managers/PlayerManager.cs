@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon;
 using VRTK;
+using UnityEngine.UI;
 
 // Class to sync player to network
 public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
@@ -70,6 +71,12 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     public AudioClip hurtSound;
     public AudioClip deadSound;
 
+    [Header("UI")]
+    public GameObject canvas;
+    GameObject ui;
+    [Range(1, 5)]
+    public float uiDist = 2f;
+
     // Use this for initialization
     void Start() {
         health = maxHealth;
@@ -99,6 +106,9 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
             GameManager.GM.ReportJoin(photonView.viewID);
 
             audio = GetComponent<AudioSource>();
+
+            ui = GameObject.Instantiate(canvas, transform.position + transform.forward * uiDist, Quaternion.identity);
+            ui.transform.SetParent(transform.Find("Avatar_Head"));
         }
     }
 
@@ -116,6 +126,7 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         else {
             MovePuppet();
             UpdateBracelet();
+            UpdateDeathCount();
         }
     }
 
@@ -230,6 +241,12 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         //mat.SetColor("_Color", col);
         mat.color = col;
         mat.SetColor("_EmissionColor", em);
+    }
+
+    // updates ui to reflect numebr of players left
+    void UpdateDeathCount() {
+        Text t = ui.transform.Find("DeathCount").GetComponent<Text>();
+        t.text = string.Format("Players Remaining: {0}/{1}", GameManager.GM.NumAlive(), GameManager.GM.NumPlayers());
     }
 
     // method to determine what we do once we are ded (becoming a spectator, for example)
