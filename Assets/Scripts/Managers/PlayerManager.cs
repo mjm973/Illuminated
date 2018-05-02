@@ -102,6 +102,7 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
         if (view.isMine) {
             UpdateBracelet();
+
             player = this;
             GameManager.GM.ReportJoin(photonView.viewID);
 
