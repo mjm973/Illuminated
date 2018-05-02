@@ -180,16 +180,21 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable {
     void SyncRead(PhotonStream s) {
         state = (GameState)s.ReceiveNext();
 
+        int[] states = new int[4];
+
         for (int i = 0; i < 4; ++i) {
             Player p = new Player();
             int id = (int)s.ReceiveNext();
             PlayerState state = (PlayerState)s.ReceiveNext();
+            states[i] = (int)state;
             if (state != PlayerState.None) {
                 p.id = id;
                 p.state = state;
                 players[i] = p;
             }
         }
+
+        print(string.Format("Player states: {0}|{1}|{2}|{3}", states[0], states[1], states[2], states[3]));
     }
 
     #endregion
@@ -288,8 +293,6 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable {
 
         return num;
     }
-
-
 
     void AudioFadeOut() {
         targetVolume = 0f;
