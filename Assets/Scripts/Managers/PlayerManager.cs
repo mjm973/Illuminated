@@ -204,8 +204,6 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     public void Damage(float amt) {
         if (photonView.isMine) {
             health -= amt;
-            Debug.Log("I just took " + amt + " damage!");
-
             HitFeedback(amt / 20f);
 
             if (health <= 0) {

@@ -144,17 +144,13 @@ public class GrenadeManager : Photon.MonoBehaviour {
 
             // linear damage falloff
             float proximity = (center - hurtPlayer.transform.position).magnitude;
-            //Debug.Log("Proximity: " + proximity);
             float intensity = 1 - (proximity/blastRadius);
-           // Debug.Log("Intensity: " + intensity);
 
             // if the player is super close to the grenade, hit them for max damage
             if(intensity > maxHitCutoff) {
-                //Debug.Log("MAXIMUM DAMAGE!");
                 hurtPlayer.Damage(maxHit);
             }
             else {
-                //Debug.Log("Hitting for " + (maxHit * intensity));
                 hurtPlayer.Damage(maxHit * intensity);
             }
         }
