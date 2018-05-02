@@ -118,6 +118,7 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable {
                 Player p = players[i];
                 if (p.id == id) {
                     p.state = PlayerState.Dead;
+                    print(string.Format("Player with ID {0} is now dead", id));
                     break;
                 }
             }

@@ -208,7 +208,7 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
 
             HitFeedback(amt / 20f);
 
-            if (health < 0) {
+            if (health <= 0) {
                 Die();
             } else if (audio != null && hurtSound != null) {
                 audio.PlayOneShot(hurtSound);
@@ -263,6 +263,8 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     // method to determine what we do once we are ded (becoming a spectator, for example)
     void Die() {
         // do stuff
+        print("Ded");
+
         if (audio != null && deadSound != null) {
             audio.PlayOneShot(deadSound);
         }
