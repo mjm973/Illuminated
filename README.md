@@ -30,7 +30,7 @@ Sound:
 Environment:
 - Scale down the environment
 - Dial down the lights
-
+- Have more posters and graffiti
 
 Controller:
 - Teleport with left hand
