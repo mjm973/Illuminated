@@ -241,7 +241,9 @@ float4 Frag (Interpolators i) : SV_TARGET // SV_TARGET: shader target color data
   // above threshold, we use full alpha; below, we fade out
   float alpha = br > _LightThreshold ? 1 : br/_LightThreshold;
 
-  float3 albedo = tex2D(_MainTex, i.uv.xy).rgb*_Color.rgb; // Sample texture and apply tint
+  float4 texRaw = tex2D(_MainTex, i.uv.xy);
+  float3 albedo = texRaw.rgb*_Color.rgb; // Sample texture and apply tint
+  alpha *= texRaw.a;
 
   float3 specularTint;
   float oneMinusReflectivity;
