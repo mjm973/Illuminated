@@ -710,8 +710,8 @@ MonoBehaviour:
   debug: 0
   visible: {fileID: 2100000, guid: 6f12ca09acf2fc1469360d483ea66572, type: 2}
   invisible: {fileID: 2100000, guid: acf61aacb0f60284ea67b62ef483901a, type: 2}
-  maxHealth: 100
-  lowHealth: 20
+  maxHealth: 120
+  lowHealth: 30
   healthGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
