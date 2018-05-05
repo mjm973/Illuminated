@@ -41,4 +41,5 @@ MonoBehaviour:
   - ReportJoin
   - Spawn
   - AudioFadeIn
+  - WarpToSpawn
   DisableAutoOpenWizard: 1
