@@ -143,7 +143,7 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable {
 
                     if (p.state == PlayerState.Alive) {
                         p.state = PlayerState.Winner;
-                    } else {
+                    } else if (p.state == PlayerState.Dead) {
                         p.state = PlayerState.Over;
                     }
 
