@@ -25,6 +25,7 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     Transform body;
     Transform right;
     Transform left;
+	Transform rightBracelet;
 
     public VRTK_ControllerReference rightRef;
     public VRTK_ControllerReference leftRef;
@@ -108,6 +109,7 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         body = transform.Find("Avatar_Body");
         right = transform.Find("GrenadeLauncher");
         left = transform.Find("Bracelet");
+		rightBracelet = transform.Find("GrenadeLauncher/RightHandBracelet");
 
         if (view.isMine) {
             UpdateBracelet();
@@ -254,9 +256,12 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         Color em = col * (1 + glow);
 
         Material mat = left.GetComponentInChildren<MeshRenderer>().materials[2];
+		Material mat2 = rightBracelet.GetComponentInChildren<MeshRenderer>().materials [2];
         //mat.SetColor("_Color", col);
         mat.color = col;
+		mat2.color = col;
         mat.SetColor("_EmissionColor", em);
+		mat2.SetColor("_EmissionColor", em);
     }
 
     // updates ui to reflect numebr of players left
