@@ -295,8 +295,11 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
         // do stuff
         print("Ded");
 
-        if (audio != null && deadSound != null) {
-            audio.PlayOneShot(deadSound);
+        if (audio != null) {
+            audio.Stop();
+            if (deadSound != null) {
+                audio.PlayOneShot(deadSound);
+            }
         }
 
         GameManager.GM.ReportDeath(photonView.viewID);
