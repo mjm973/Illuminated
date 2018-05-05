@@ -45,6 +45,8 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     [SerializeField]
     float maxHealth = 100f;
     float health;
+    [SerializeField]
+    float lowHealth = 20f;
 
     public float Health {
         get { return health; }
@@ -210,6 +212,10 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
                 Die();
             }
             else if (audio != null && hurtSound != null) {
+                if (!audio.isPlaying && health <= lowHealth) {
+                    audio.loop = true;
+                    audio.Play();
+                }
                 audio.PlayOneShot(hurtSound);
             }
         }

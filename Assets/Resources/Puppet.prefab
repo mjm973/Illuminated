@@ -513,7 +513,8 @@ AudioSource:
   m_GameObject: {fileID: 1758447315361212}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 0ce93f37e2a20b4408b69b5890f4f643,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -607,6 +608,7 @@ MonoBehaviour:
   visible: {fileID: 2100000, guid: 6f12ca09acf2fc1469360d483ea66572, type: 2}
   invisible: {fileID: 2100000, guid: acf61aacb0f60284ea67b62ef483901a, type: 2}
   maxHealth: 100
+  lowHealth: 20
   healthGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
