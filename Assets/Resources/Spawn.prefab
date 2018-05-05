@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 114619057587536800}
   m_Layer: 0
   m_Name: Spawn
-  m_TagString: Untagged
+  m_TagString: Spawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -201,7 +201,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1433652286291268}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.87, y: 0, z: 3.061298}
+  m_LocalPosition: {x: 2.9473455, y: -0.65, z: -6.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4687654488737066}
@@ -332,21 +332,21 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1234064168645212}
-  m_Mesh: {fileID: 4300002, guid: ec414a1093302294882f9a15c2ef6e5d, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 76a8773afc8576b4bb7e211ed37b736d, type: 3}
 --- !u!33 &33802416777024510
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1248271604692090}
-  m_Mesh: {fileID: 4300000, guid: ec414a1093302294882f9a15c2ef6e5d, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 76a8773afc8576b4bb7e211ed37b736d, type: 3}
 --- !u!33 &33974938601592708
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1629639950737758}
-  m_Mesh: {fileID: 4300004, guid: ec414a1093302294882f9a15c2ef6e5d, type: 3}
+  m_Mesh: {fileID: 4300004, guid: 76a8773afc8576b4bb7e211ed37b736d, type: 3}
 --- !u!108 &108516687338175802
 Light:
   m_ObjectHideFlags: 1

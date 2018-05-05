@@ -240,6 +240,8 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable {
                         players[i] = p;
                     }
 
+                    SpawnPlayers();
+
                     photonView.RPC("AudioFadeIn", PhotonTargets.AllBuffered, 0);
                     break;
                 case GameState.Match:
@@ -282,6 +284,18 @@ public class GameManager : Photon.MonoBehaviour, IPunObservable {
     bool IsGameOver() {
         //return NumPlayers () >= 2 && NumAlive () <= 1;
         return NumAlive() <= 1;
+    }
+
+    void SpawnPlayers() {
+        GameObject[] puppets = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] spawns = GameObject.FindGameObjectsWithTag("Spawn");
+
+        for (int i = 0; i < puppets.Length; ++i) {
+            PlayerManager pm = puppets[i].GetComponent<PlayerManager>();
+            if (pm) {
+                pm.WarpToSpawn(spawns[i].transform.Find("SpawnPoint").position);
+            }
+        }
     }
 
     // how many players
