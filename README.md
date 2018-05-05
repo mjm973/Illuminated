@@ -29,8 +29,8 @@ Sound:
 
 Environment:
 - [x] Scale down the environment
-- [x]- Dial down the lights
-- [x]- Have more posters and graffiti -OHHHH YEAHHHH
+- [x] Dial down the lights
+- [x] Have more posters and graffiti -OHHHH YEAHHHH
 
 Controller:
 - [x]- Teleport with left hand
