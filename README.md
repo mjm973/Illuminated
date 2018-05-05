@@ -19,27 +19,27 @@ Please create folder `Assets/Ignore` and place packages (Photon, SteamVR, and ot
 
 ## USER TESTING FEEDBACK MAY 3 AND CONSEQUENT PROGRESS:
 UI:
-[x]- Add UI at start and end of game
-[x]- Position the UI better
-KINDA- UI for being illuminated by lights
+- [x] Add UI at start and end of game
+- [x] Position the UI better
+- [ ] KINDA- UI for being illuminated by lights
 
 Sound:
-[x]- Add damage/ hurt sound
-[x]- Add breathing sound when a player is dying
+- [x] Add damage/ hurt sound
+- [x] Add breathing sound when a player is dying
 
 Environment:
-[x]- Scale down the environment
-[x]- Dial down the lights
-[x]- Have more posters and graffiti -OHHHH YEAHHHH
+- [x] Scale down the environment
+- [x]- Dial down the lights
+- [x]- Have more posters and graffiti -OHHHH YEAHHHH
 
 Controller:
-[x]- Teleport with left hand
-[x]- Have bracelets on both hands
+- [x]- Teleport with left hand
+- [x]- Have bracelets on both hands
 
 Game Logic:
-[x]- Rebalance damage
-[x]- Smaller grenade illumination radius
-- Potentially cut down teleport cool down - SO INSTEAD WE GAVE EACH HAND ITS OWN COOLDOWN 
+- [x] Rebalance damage
+- [x] Smaller grenade illumination radius
+- [ ] Potentially cut down teleport cool down - SO INSTEAD WE GAVE EACH HAND ITS OWN COOLDOWN 
 
 
 ## USER TESTING FEEDBACK APR 19:
