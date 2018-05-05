@@ -345,10 +345,12 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     [PunRPC]
     public void WarpToSpawn(Vector3 where) {
         if (photonView.isMine) {
-            GameObject rig = GameObject.Find("VR_Setup(clone)");
+            GameObject rig = GameObject.Find("VR_Setup(Clone)");
+            print(rig.name);
             float y = rig.transform.position.y;
             Vector3 to = where;
             to.y = y;
+            print(to);
             rig.transform.position = to;
         } else {
             photonView.RPC("WarpToSpawn", photonView.owner, where);
