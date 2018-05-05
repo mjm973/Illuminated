@@ -17,29 +17,29 @@ Check our [Technical specifications](https://github.com/mjm973/Illuminated/blob/
 
 Please create folder `Assets/Ignore` and place packages (Photon, SteamVR, and other unused assets) inside folder for easy Git ignoring. Thanks.
 
-## USER TESTING FEEDBACK MAY 3:
+## USER TESTING FEEDBACK MAY 3 AND CONSEQUENT PROGRESS:
 UI:
-- Add UI at start and end of game
-- Position the UI better
-- UI for being illuminated by lights
+[x]- Add UI at start and end of game
+[x]- Position the UI better
+KINDA- UI for being illuminated by lights
 
 Sound:
-- Add damage/ hurt sound
-- Add breathing sound when a player is dying
+[x]- Add damage/ hurt sound
+[x]- Add breathing sound when a player is dying
 
 Environment:
-- Scale down the environment
-- Dial down the lights
-- Have more posters and graffiti
+[x]- Scale down the environment
+[x]- Dial down the lights
+[x]- Have more posters and graffiti -OHHHH YEAHHHH
 
 Controller:
-- Teleport with left hand
-- Have bracelets on both hands
+[x]- Teleport with left hand
+[x]- Have bracelets on both hands
 
 Game Logic:
-- Rebalance damage
-- Smaller grenade illumination radius
-- Potentially cut down teleport cool down
+[x]- Rebalance damage
+[x]- Smaller grenade illumination radius
+- Potentially cut down teleport cool down - SO INSTEAD WE GAVE EACH HAND ITS OWN COOLDOWN 
 
 
 ## USER TESTING FEEDBACK APR 19:
