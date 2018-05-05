@@ -799,6 +799,8 @@ MonoBehaviour:
   deadSound: {fileID: 0}
   canvas: {fileID: 1273287504956948, guid: e5d37dc2d7b6b1a4aa80607821f3323e, type: 2}
   uiDist: 2
+  dispFont: {fileID: 12800000, guid: 96dcb7dbed4e7d445bc26fdfade8f5a7, type: 3}
+  offset: -11.49
 --- !u!114 &114830870332507740
 MonoBehaviour:
   m_ObjectHideFlags: 1

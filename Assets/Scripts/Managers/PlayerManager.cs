@@ -79,6 +79,10 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     GameObject ui;
     [Range(1, 5)]
     public float uiDist = 2f;
+    public Font dispFont;
+    public float offset; /*YRN we never had no old money*/
+
+
 
     // Use this for initialization
     void Start() {
@@ -267,27 +271,42 @@ public class PlayerManager : Photon.MonoBehaviour, IPunObservable {
     // updates ui to reflect numebr of players left
     void UpdateDeathCount() {
         Text t = ui.transform.Find("DeathCount").GetComponent<Text>();
+        t.font = dispFont;
         GameManager.PlayerState ps = GameManager.GM.GetState(photonView.viewID);
 
         switch (GameManager.State) {
             case GameManager.GameState.Lobby:
-                t.text = string.Format("Waiting for players: {0}/4 joined", GameManager.GM.NumPlayers());
+                t.transform.localPosition = new Vector3(16, 200, 0);
+                t.text = string.Format("{0} contender(s) waiting", GameManager.GM.NumPlayers());
+                t.fontSize = 42;
+                t.color = new Color(1f, 1f, 1f);
                 break;
             case GameManager.GameState.Match:
+                t.transform.localPosition = new Vector3(16, 200, 0);
                 if (ps == GameManager.PlayerState.Alive) {
-                    t.text = string.Format("Players Remaining: {0}/{1}", GameManager.GM.NumAlive(), GameManager.GM.NumPlayers());
+                    t.text = string.Format("{0} of you. Hunt.", GameManager.GM.NumAlive());
+                    t.fontSize = 42;
+                    t.color = new Color(1f, 1f, 1f);
                 }
                 else if (ps == GameManager.PlayerState.Dead) {
-                    t.text = string.Format("ILLUMINATED");
+                    t.text = string.Format("WEAK! You have been Illuminated");
+                    t.fontSize = 80;
+                    t.color = new Color(1f, 0f, 0f);
                 }
 
                 break;
             case GameManager.GameState.Over:
+                t.transform.localPosition = new Vector3(16, 64, 0);
                 if (ps == GameManager.PlayerState.Over) {
-                    t.text = string.Format("GAME OVER");
+                    t.text = string.Format("ILLUMINATED.");
+                    t.fontSize = 80;
+                    t.color = new Color(1f, 0f, 0f);  
                 }
                 else if (ps == GameManager.PlayerState.Winner) {
-                    t.text = string.Format("WINNER");
+                    t.text = string.Format("SURVIVOR.");
+                    t.fontSize = 80;
+                    t.color = new Color(1f, 0f, 0f);
+
                 }
 
                 break;
