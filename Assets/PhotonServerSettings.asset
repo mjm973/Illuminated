@@ -40,4 +40,5 @@ MonoBehaviour:
   - ReportDeath
   - ReportJoin
   - Spawn
+  - AudioFadeIn
   DisableAutoOpenWizard: 1
