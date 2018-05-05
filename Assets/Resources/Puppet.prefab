@@ -797,7 +797,7 @@ MonoBehaviour:
   glow: 1
   hurtSound: {fileID: 8300000, guid: b210981576259534098dcf3b9b47b7f8, type: 3}
   deadSound: {fileID: 0}
-  canvas: {fileID: 1273287504956948, guid: da96a8dfb41095a4e805c7c57c4494d8, type: 2}
+  canvas: {fileID: 1273287504956948, guid: e5d37dc2d7b6b1a4aa80607821f3323e, type: 2}
   uiDist: 2
 --- !u!114 &114830870332507740
 MonoBehaviour:
@@ -821,8 +821,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114099512870754852}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!136 &136167924112424844
