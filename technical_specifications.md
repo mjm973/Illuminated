@@ -12,11 +12,11 @@
 #### MILESTONE ALPHA - WEEK 10 - 04/05
 
 - **Status**: 
-  - - Implement health system
-  - - Initialize avatars with Vive Headset and Controllers.
-  - - Implement teleport and trigger to shoot/ illuminate functionality.
-  - - Enable direct network connection between two Vives (sync player position and grenade position).
-  - - Complete grenade behaviour with freezing position and exploding.
+  -Implement health system
+  - Initialize avatars with Vive Headset and Controllers.
+  - Implement teleport and trigger to shoot/ illuminate functionality.
+  - Enable direct network connection between two Vives (sync player position and grenade position).
+  - Complete grenade behaviour with freezing position and exploding.
 - **Interaction**: Trigger to shoot, touchpad click to teleport .
 - **Technical development**: Connect game with SteamVR. Make sure VR works over network. Health system and grenade behavior should be straightforward.
 - **Media assets**: 
@@ -29,10 +29,10 @@
 #### MILESTONE BETA - WEEK 12 - 04/19
 
 - **Status**:
-  - - Create a story line or narrative.
-  - - Build an opening scene with intro and instruction.
-  - - Design VR UI elements.
-  - - Work on spatial layout of the environment.
+  - Create a story line or narrative.
+  - Build an opening scene with intro and instruction.
+  - Design VR UI elements.
+  - Work on spatial layout of the environment.
 - **Interaction**: Trigger to shoot, touchpad click to teleport, swipe to dash, gesture to swap weapon.
 - **Technical development**: Implement gesture-based weapon swap (reach back to swap) might be harder than expected. Additional weapon(s) might pose their own unique challenges. Straightforward UI.
 - **Media assets**: 
@@ -45,10 +45,10 @@
 #### MILESTONE GOLD - WEEK 14 - 05/01
 
 - **Status**:
-  - - Ensure smooth and fully functional shooting, illuminating, teleporting, dashing and swapping weapons.
-  - - Elaborate the environmental and spatial layout.
-  - - Design different weapon types.
-  - - Add visual and sound and other UI responses. 
+  - Ensure smooth and fully functional shooting, illuminating, teleporting, dashing and swapping weapons.
+  - Elaborate the environmental and spatial layout.
+  - Design different weapon types.
+  - Add visual and sound and other UI responses. 
 - **Interaction**: Trigger to shoot, touchpad click to teleport, swipe to dash, gesture to swap weapons.
 - **Technical development**: Any issues from before should be worked out by now. We expect the biggest challenges to come from earlier development stages, so additions at this point should be straightforward (sound, space, opening). 
 - **Media assets**: 
